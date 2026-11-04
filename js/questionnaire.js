@@ -1,7 +1,7 @@
 
 import { questions } from "../data/questions.js";
 
-const STORAGE_KEY = "terracotta-questionnaire-v1";
+const STORAGE_KEY = "terracotta-questionnaire-v2";
 
 let currentIndex = 0;
 let answers = {};
@@ -17,20 +17,29 @@ const nextButton = document.getElementById("next-button");
 
 let onComplete = () => {};
 
+// SAUVEGARDE DU QUESTIONNAIRE
+
 function saveProgress() {
     try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({
-            currentIndex,
-            answers
-        }));
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({
+                currentIndex,
+                answers
+            })
+        );
     } catch (error) {
         console.warn("Sauvegarde locale indisponible.", error);
     }
 }
 
+// RESTAURATION DU QUESTIONNAIRE
+
 function restoreProgress() {
     try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        const saved = JSON.parse(
+            localStorage.getItem(STORAGE_KEY)
+        );
 
         if (!saved || typeof saved !== "object") return;
 
@@ -43,33 +52,42 @@ function restoreProgress() {
 
         if (saved.answers && typeof saved.answers === "object") {
             for (const question of questions) {
-                const validIds = question.options.map(option => option.id);
+                const validIds = question.options.map(
+                    option => option.id
+                );
+
                 const value = saved.answers[question.id];
 
-                if (Array.isArray(value)) {
-                    const filtered = [...new Set(value)].filter(
-                        id => validIds.includes(id)
-                    );
+                if (!Array.isArray(value)) continue;
 
-                    if (
-                        filtered.length > 0 &&
-                        (
-                            question.type !== "multiple" ||
-                            !question.maxSelections ||
-                            filtered.length <= question.maxSelections
-                        )
-                    ) {
-                        answers[question.id] = question.type === "single"
+                const filtered = [...new Set(value)].filter(
+                    id => validIds.includes(id)
+                );
+
+                if (
+                    filtered.length > 0 &&
+                    (
+                        question.type !== "multiple" ||
+                        !question.maxSelections ||
+                        filtered.length <= question.maxSelections
+                    )
+                ) {
+                    answers[question.id] =
+                        question.type === "single"
                             ? [filtered[0]]
                             : filtered;
-                    }
                 }
             }
         }
     } catch (error) {
-        console.warn("Impossible de restaurer le parcours.", error);
+        console.warn(
+            "Impossible de restaurer le parcours.",
+            error
+        );
     }
 }
+
+// FONCTIONS UTILITAIRES
 
 function getCurrentQuestion() {
     return questions[currentIndex];
@@ -87,20 +105,29 @@ function showError(message) {
     errorElement.textContent = message;
 }
 
+// PROGRESSION
+
 function updateProgress() {
     const progress = Math.round(
         (currentIndex / questions.length) * 100
     );
 
     progressFill.style.width = `${progress}%`;
-    progressElement.setAttribute("aria-valuenow", String(progress));
+
+    progressElement.setAttribute(
+        "aria-valuenow",
+        String(progress)
+    );
 
     counterElement.textContent =
         `Question ${currentIndex + 1} sur ${questions.length}`;
 }
 
+// CRÉATION DES BOUTONS DE RÉPONSE
+
 function createOptionButton(question, option) {
     const button = document.createElement("button");
+
     button.type = "button";
     button.className = "answer-button";
     button.textContent = option.label;
@@ -118,6 +145,8 @@ function createOptionButton(question, option) {
     return button;
 }
 
+// AFFICHAGE D'UNE QUESTION
+
 function renderQuestion() {
     if (questions.length === 0) return;
 
@@ -127,6 +156,7 @@ function renderQuestion() {
     updateProgress();
 
     categoryElement.textContent = question.category;
+
     container.replaceChildren();
 
     const title = document.createElement("h1");
@@ -145,7 +175,11 @@ function renderQuestion() {
         );
     });
 
-    container.append(title, description, answerGrid);
+    container.append(
+        title,
+        description,
+        answerGrid
+    );
 
     previousButton.disabled = currentIndex === 0;
 
@@ -155,20 +189,36 @@ function renderQuestion() {
             : "Suivant";
 }
 
+// SÉLECTION DES RÉPONSES
+
 function selectAnswer(question, optionId) {
     const current = getSelectedAnswers(question.id);
 
     if (question.type === "single") {
         answers[question.id] = [optionId];
     } else {
+        // Q3-J : ouvert à toutes les propositions
+        // Q6-H : aucune activité pratiquée
+        // Ces réponses sont exclusives des autres choix.
+        const exclusiveOption =
+            question.id === "Q3" ? "Q3-J" :
+            question.id === "Q6" ? "Q6-H" :
+            null;
+
         if (current.includes(optionId)) {
             answers[question.id] = current.filter(
                 id => id !== optionId
             );
+        } else if (optionId === exclusiveOption) {
+            answers[question.id] = [optionId];
         } else {
+            const withoutExclusive = current.filter(
+                id => id !== exclusiveOption
+            );
+
             if (
                 question.maxSelections &&
-                current.length >= question.maxSelections
+                withoutExclusive.length >= question.maxSelections
             ) {
                 showError(
                     `Vous pouvez sélectionner ${question.maxSelections} réponses maximum.`
@@ -176,7 +226,10 @@ function selectAnswer(question, optionId) {
                 return;
             }
 
-            answers[question.id] = [...current, optionId];
+            answers[question.id] = [
+                ...withoutExclusive,
+                optionId
+            ];
         }
     }
 
@@ -184,17 +237,22 @@ function selectAnswer(question, optionId) {
     renderQuestion();
 }
 
+// QUESTION SUIVANTE
+
 function goNext() {
     const question = getCurrentQuestion();
     const selected = getSelectedAnswers(question.id);
 
     if (selected.length === 0 && !question.optional) {
-        showError("Sélectionnez au moins une réponse pour continuer.");
+        showError(
+            "Sélectionnez au moins une réponse pour continuer."
+        );
         return;
     }
 
     if (currentIndex < questions.length - 1) {
         currentIndex++;
+
         saveProgress();
         renderQuestion();
     } else {
@@ -203,17 +261,24 @@ function goNext() {
     }
 }
 
+// QUESTION PRÉCÉDENTE
+
 function goPrevious() {
     if (currentIndex > 0) {
         currentIndex--;
+
         saveProgress();
         renderQuestion();
     }
 }
 
+// EXPORT DES RÉPONSES POUR MAIN.JS
+
 export function getAnswers() {
     return structuredClone(answers);
 }
+
+// RÉINITIALISATION DU QUESTIONNAIRE
 
 export function resetQuestionnaire() {
     currentIndex = 0;
@@ -222,19 +287,31 @@ export function resetQuestionnaire() {
     try {
         localStorage.removeItem(STORAGE_KEY);
     } catch (error) {
-        console.warn("Réinitialisation locale indisponible.", error);
+        console.warn(
+            "Réinitialisation locale indisponible.",
+            error
+        );
     }
 
     renderQuestion();
 }
+
+// INITIALISATION DU QUESTIONNAIRE
 
 export function initQuestionnaire(completionCallback) {
     onComplete = completionCallback;
 
     restoreProgress();
 
-    previousButton.addEventListener("click", goPrevious);
-    nextButton.addEventListener("click", goNext);
+    previousButton.addEventListener(
+        "click",
+        goPrevious
+    );
+
+    nextButton.addEventListener(
+        "click",
+        goNext
+    );
 
     renderQuestion();
 }

@@ -368,3 +368,8 @@
     }
 
 }
+
+/* Masquer les titres des questionnaires */
+#question-category {
+    display: none;
+}

@@ -10,14 +10,23 @@ const DEMO_ADVENTURES = [
     "Trail sous les sapins"
 ];
 
+// CRÉATION DES ÉLÉMENTS HTML
+
 function createElement(tag, className, text) {
     const element = document.createElement(tag);
 
-    if (className) element.className = className;
-    if (text !== undefined) element.textContent = text;
+    if (className) {
+        element.className = className;
+    }
+
+    if (text !== undefined) {
+        element.textContent = text;
+    }
 
     return element;
 }
+
+// FORMATAGE DES RÉPONSES AU QUESTIONNAIRE
 
 function formatAnswers(answers) {
     return questions.map((question) => {
@@ -33,18 +42,31 @@ function formatAnswers(answers) {
 
         return [
             `${question.id} — ${question.title}`,
-            labels.length ? labels.join(" ; ") : "Non renseigné"
+            labels.length
+                ? labels.join(" ; ")
+                : "Non renseigné"
         ].join("\n");
     }).join("\n\n");
 }
 
-function createField(labelText, name, type, required = false) {
-    const wrapper = createElement("div", "contact-field");
+// CRÉATION DES CHAMPS DU FORMULAIRE
 
-    const label = createElement("label", "contact-label", labelText);
+function createField(labelText, name, type, required = false) {
+    const wrapper = createElement(
+        "div",
+        "contact-field"
+    );
+
+    const label = createElement(
+        "label",
+        "contact-label",
+        labelText
+    );
+
     label.htmlFor = `contact-${name}`;
 
     const input = document.createElement("input");
+
     input.id = `contact-${name}`;
     input.name = name;
     input.type = type;
@@ -67,11 +89,18 @@ function createField(labelText, name, type, required = false) {
     }
 
     wrapper.append(label, input);
+
     return wrapper;
 }
 
+// CRÉATION DU FORMULAIRE DE CONTACT
+
 function createContactForm(answers, result) {
-    const form = createElement("form", "contact-form");
+    const form = createElement(
+        "form",
+        "contact-form"
+    );
+
     form.id = "terracotta-contact-form";
     form.hidden = true;
 
@@ -87,51 +116,84 @@ function createContactForm(answers, result) {
         "Laisse-moi tes coordonnées pour échanger sur les expériences qui t'intéressent."
     );
 
-    const nameField = createField("Ton prénom", "name", "text", true);
+    const nameField = createField(
+        "Ton prénom",
+        "name",
+        "text",
+        true
+    );
+
     const emailField = createField(
         "Ton adresse email",
         "email",
         "email",
         true
     );
+
     const phoneField = createField(
         "Ton téléphone (facultatif)",
         "phone",
         "tel"
     );
 
-    const messageWrapper = createElement("div", "contact-field");
+    // MESSAGE FACULTATIF
+
+    const messageWrapper = createElement(
+        "div",
+        "contact-field"
+    );
+
     const messageLabel = createElement(
         "label",
         "contact-label",
         "Un message à ajouter ? (facultatif)"
     );
+
     messageLabel.htmlFor = "contact-message";
 
-    const messageInput = document.createElement("textarea");
+    const messageInput = document.createElement(
+        "textarea"
+    );
+
     messageInput.id = "contact-message";
     messageInput.name = "message";
-    messageInput.className = "contact-input contact-textarea";
+    messageInput.className =
+        "contact-input contact-textarea";
+
     messageInput.rows = 3;
     messageInput.maxLength = 2000;
 
-    messageWrapper.append(messageLabel, messageInput);
+    messageWrapper.append(
+        messageLabel,
+        messageInput
+    );
 
-    // Champ anti-spam invisible
+    // CHAMP ANTI-SPAM INVISIBLE
+
     const honeypot = document.createElement("input");
+
     honeypot.type = "text";
     honeypot.name = "_gotcha";
     honeypot.tabIndex = -1;
     honeypot.autocomplete = "off";
     honeypot.className = "contact-honeypot";
-    honeypot.setAttribute("aria-hidden", "true");
+
+    honeypot.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    // CONSENTEMENT
 
     const consentWrapper = createElement(
         "label",
         "contact-consent"
     );
 
-    const consentInput = document.createElement("input");
+    const consentInput = document.createElement(
+        "input"
+    );
+
     consentInput.type = "checkbox";
     consentInput.name = "consent";
     consentInput.required = true;
@@ -142,16 +204,26 @@ function createContactForm(answers, result) {
         "J'accepte que mes coordonnées et mes réponses au questionnaire soient transmises pour être recontacté au sujet de mon projet d'aventure."
     );
 
-    consentWrapper.append(consentInput, consentText);
+    consentWrapper.append(
+        consentInput,
+        consentText
+    );
+
+    // BOUTON D'ENVOI
 
     const submitButton = createElement(
         "button",
         "contact-submit",
         "Envoyer ma demande"
     );
+
     submitButton.type = "submit";
 
-    const status = createElement("p", "contact-status");
+    const status = createElement(
+        "p",
+        "contact-status"
+    );
+
     status.setAttribute("role", "status");
     status.setAttribute("aria-live", "polite");
 
@@ -168,101 +240,137 @@ function createContactForm(answers, result) {
         status
     );
 
-    form.addEventListener("submit", async (event) => {
-        event.preventDefault();
+    // ENVOI DU FORMULAIRE VIA FORMSPREE
 
-        if (!form.reportValidity()) return;
+    form.addEventListener(
+        "submit",
+        async (event) => {
+            event.preventDefault();
 
-        const profileName = result.primary
-            ? result.primary.name
-            : result.tiedProfiles.map(p => p.name).join(" / ");
-
-        const formData = new FormData(form);
-
-        formData.set(
-            "subject",
-            `Terracotta — Nouvelle demande — ${profileName}`
-        );
-
-        formData.set("profil", profileName);
-
-        formData.set(
-            "profil_secondaire",
-            result.secondary?.name || "Aucun"
-        );
-
-        formData.set(
-            "aventures_proposees",
-            DEMO_ADVENTURES.join("\n")
-        );
-
-        formData.set(
-            "reponses_questionnaire",
-            formatAnswers(answers)
-        );
-
-        formData.set(
-            "date_demande",
-            new Date().toISOString()
-        );
-
-        formData.set(
-            "consentement_contact",
-            "Oui — confirmé avant envoi"
-        );
-
-        submitButton.disabled = true;
-        submitButton.textContent = "Envoi en cours…";
-        status.textContent = "";
-
-        try {
-            const response = await fetch(FORMSPREE_URL, {
-                method: "POST",
-                body: formData,
-                headers: {
-                    Accept: "application/json"
-                }
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-
-                console.error("Formspree — erreur HTTP :", response.status);
-                console.error("Formspree — détails :", errorData);
-
-                throw new Error(
-                    errorData.errors?.map(e => e.message).join(", ") ||
-                    errorData.error ||
-                    `Erreur HTTP ${response.status}`
-                );
+            if (!form.reportValidity()) {
+                return;
             }
 
-            form.replaceChildren(
-                createElement(
-                    "h2",
-                    "contact-title",
-                    "Merci pour ton message !"
-                ),
-                createElement(
-                    "p",
-                    "contact-intro",
-                    "Ta demande a bien été transmise. Je reviendrai vers toi prochainement."
-                )
+            const profileName = result.primary
+                ? result.primary.name
+                : result.tiedProfiles
+                    .map(p => p.name)
+                    .join(" / ");
+
+            const formData = new FormData(form);
+
+            formData.set(
+                "subject",
+                `Terracotta — Nouvelle demande — ${profileName}`
             );
 
-        } catch (error) {
-            console.error("Terracotta — Formspree :", error);
+            formData.set(
+                "profil",
+                profileName
+            );
 
-            status.textContent =
-                `L'envoi a échoué : ${error.message}`;
+            formData.set(
+                "profil_secondaire",
+                result.secondary?.name || "Aucun"
+            );
 
-            submitButton.disabled = false;
-            submitButton.textContent = "Envoyer ma demande";
+            formData.set(
+                "aventures_proposees",
+                DEMO_ADVENTURES.join("\n")
+            );
+
+            formData.set(
+                "reponses_questionnaire",
+                formatAnswers(answers)
+            );
+
+            formData.set(
+                "date_demande",
+                new Date().toISOString()
+            );
+
+            formData.set(
+                "consentement_contact",
+                "Oui — confirmé avant envoi"
+            );
+
+            submitButton.disabled = true;
+            submitButton.textContent =
+                "Envoi en cours…";
+
+            status.textContent = "";
+
+            try {
+                const response = await fetch(
+                    FORMSPREE_URL,
+                    {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            Accept: "application/json"
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    const errorData = await response
+                        .json()
+                        .catch(() => ({}));
+
+                    console.error(
+                        "Formspree — erreur HTTP :",
+                        response.status
+                    );
+
+                    console.error(
+                        "Formspree — détails :",
+                        errorData
+                    );
+
+                    throw new Error(
+                        errorData.errors
+                            ?.map(e => e.message)
+                            .join(", ") ||
+                        errorData.error ||
+                        `Erreur HTTP ${response.status}`
+                    );
+                }
+
+                // CONFIRMATION APRÈS ENVOI
+
+                form.replaceChildren(
+                    createElement(
+                        "h2",
+                        "contact-title",
+                        "Merci pour ton message !"
+                    ),
+                    createElement(
+                        "p",
+                        "contact-intro",
+                        "Ta demande a bien été transmise. Je reviendrai vers toi prochainement."
+                    )
+                );
+
+            } catch (error) {
+                console.error(
+                    "Terracotta — Formspree :",
+                    error
+                );
+
+                status.textContent =
+                    `L'envoi a échoué : ${error.message}`;
+
+                submitButton.disabled = false;
+                submitButton.textContent =
+                    "Envoyer ma demande";
+            }
         }
-    });
+    );
 
     return form;
 }
+
+// AFFICHAGE DES RÉSULTATS
 
 export function renderResults(answers) {
     const container = document.getElementById(
@@ -270,14 +378,19 @@ export function renderResults(answers) {
     );
 
     if (!container) {
-        console.error("Terracotta : résultats introuvables.");
+        console.error(
+            "Terracotta : résultats introuvables."
+        );
         return null;
     }
 
+    // CALCUL DU PROFIL
+
     const result = calculateProfile(answers);
+
     container.replaceChildren();
 
-    // PROFIL
+    // CARTE DU PROFIL
 
     const profileCard = createElement(
         "div",
@@ -310,9 +423,13 @@ export function renderResults(answers) {
         profileDescription
     );
 
-    profileCard.append(eyebrow, title, description);
+    profileCard.append(
+        eyebrow,
+        title,
+        description
+    );
 
-    // AVENTURES
+    // SECTION DES AVENTURES
 
     const recommendations = createElement(
         "section",
@@ -352,9 +469,12 @@ export function renderResults(answers) {
         cards.appendChild(card);
     });
 
-    recommendations.append(recommendationsTitle, cards);
+    recommendations.append(
+        recommendationsTitle,
+        cards
+    );
 
-    // CONTACT
+    // SECTION CONTACT
 
     const contactSection = createElement(
         "section",
@@ -366,35 +486,61 @@ export function renderResults(answers) {
         "result-contact-button",
         "On en discute ?"
     );
+
     contactButton.type = "button";
+
     contactButton.setAttribute(
         "aria-controls",
         "terracotta-contact-form"
     );
-    contactButton.setAttribute("aria-expanded", "false");
 
-    const contactForm = createContactForm(answers, result);
+    contactButton.setAttribute(
+        "aria-expanded",
+        "false"
+    );
 
-    contactButton.addEventListener("click", () => {
-        contactForm.hidden = false;
-        contactButton.hidden = true;
-        contactButton.setAttribute("aria-expanded", "true");
+    const contactForm = createContactForm(
+        answers,
+        result
+    );
 
-        contactForm.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+    // OUVERTURE DU FORMULAIRE
 
-        const firstInput = contactForm.querySelector(
-            'input[name="name"]'
-        );
+    contactButton.addEventListener(
+        "click",
+        () => {
+            contactForm.hidden = false;
+            contactButton.hidden = true;
 
-        if (firstInput) {
-            firstInput.focus({ preventScroll: true });
+            contactButton.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            contactForm.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            const firstInput =
+                contactForm.querySelector(
+                    'input[name="name"]'
+                );
+
+            if (firstInput) {
+                firstInput.focus({
+                    preventScroll: true
+                });
+            }
         }
-    });
+    );
 
-    contactSection.append(contactButton, contactForm);
+    contactSection.append(
+        contactButton,
+        contactForm
+    );
+
+    // ASSEMBLAGE FINAL
 
     container.append(
         profileCard,

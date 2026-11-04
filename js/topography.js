@@ -39,11 +39,11 @@ const CONFIG = {
     mobileGridSize: 9,
 
     // Tracé de randonnée
-    trailColor: "rgba(57, 255, 19, 0.35)",
+    trailColor: "rgba(57, 255, 19, 0.50)",
     trailMarkerColor: "rgba(26, 25, 25, 0.4)",
-    trailWidth: 1.6,
+    trailWidth: 1.8,
     trailDash: [15, 6],
-    trailMouseStrength: 0.250
+    trailMouseStrength: 0.200
 };
 
 // =========================================
