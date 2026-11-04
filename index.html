@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="./css/results.css">
 
     <script src="./js/topography.js" defer></script>
-    <script src="./js/main.js" defer></script>
+    <script type="module" src="./js/main.js"></script>
 </head>
 
 <body>
@@ -59,35 +59,39 @@
 
         <!-- ÉCRAN 2 : QUESTIONNAIRE -->
         <section id="questionnaire" class="screen">
-
             <div class="container questionnaire-content">
 
-                <p class="eyebrow">VOTRE EXPLORATION</p>
+                <p class="eyebrow" id="question-category"></p>
 
-                <div class="progress-track">
-                    <div class="progress-fill"></div>
+                <div
+                    class="progress-track"
+                    role="progressbar"
+                    aria-label="Progression du questionnaire"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0"
+                    id="question-progress"
+                >
+                    <div class="progress-fill" id="progress-fill"></div>
                 </div>
 
-                <h1>Quelles activités vous attirent ?</h1>
+                <p id="question-counter" class="question-counter"></p>
 
-                <p class="intro">
-                    Parmi ces activités, lesquelles vous donnent
-                    le plus envie ?
-                </p>
+                <div id="question-container" aria-live="polite"></div>
 
-                <div class="answer-grid">
+                <p id="question-error" class="question-error" role="alert"></p>
 
-                    <button class="answer-button">Courir</button>
-                    <button class="answer-button">Faire du vélo</button>
-                    <button class="answer-button">Randonnée</button>
-                    <button class="answer-button">Pagayer</button>
-                    <button class="answer-button">Grimper</button>
-                    <button class="answer-button">Autre activité</button>
+                <div class="question-navigation">
+                    <button id="previous-button" class="glass-button" type="button">
+                        Précédent
+                    </button>
 
+                    <button id="next-button" class="glass-button" type="button">
+                        Suivant
+                    </button>
                 </div>
 
             </div>
-
         </section>
 
 
