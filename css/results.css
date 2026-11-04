@@ -88,3 +88,356 @@
     }
 
 }
+
+
+/* =========================================
+   TERRACOTTA — PAGE RÉSULTATS
+========================================= */
+
+#results .results-content {
+    width: min(100% - 40px, 900px);
+    margin: 0 auto;
+    padding-bottom: 80px;
+}
+
+#results-container {
+    width: 100%;
+}
+
+/* Container principal du profil */
+
+.result-profile-card {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 48px 40px;
+    border: 1px solid rgba(46, 46, 46, 0.10);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    text-align: center;
+}
+
+.result-profile-eyebrow {
+    margin: 0 0 24px;
+    color: #2E2E2E;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+}
+
+.result-profile-name {
+    margin: 0 0 12px;
+    color: #2E2E2E;
+    font-size: clamp(38px, 6vw, 64px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+}
+
+.result-profile-description {
+    max-width: 620px;
+    margin: 0 auto;
+    color: #2E2E2E;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* Section aventures */
+
+.result-adventures {
+    width: 100%;
+    margin-top: 52px;
+}
+
+.result-adventures-title {
+    margin: 0 0 24px;
+    color: #2E2E2E;
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.result-adventure-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Bordure dégradée vert néon */
+
+.result-adventure-card {
+    padding: 2px;
+    border-radius: 20px;
+    background: linear-gradient(
+        115deg,
+        #39FF13 0%,
+        #9CFF00 100%
+    );
+    box-shadow: 0 3px 18px rgba(57, 255, 19, 0.04);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.result-adventure-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 84px;
+    box-sizing: border-box;
+    padding: 20px 28px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.91);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.result-adventure-name {
+    margin: 0;
+    color: #2E2E2E;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.result-adventure-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(57, 255, 19, 0.12);
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    #results .results-content {
+        width: min(100% - 32px, 900px);
+        padding-bottom: 48px;
+    }
+
+    .result-profile-card {
+        padding: 36px 22px;
+        border-radius: 20px;
+    }
+
+    .result-profile-description {
+        font-size: 15px;
+    }
+
+    .result-adventures {
+        margin-top: 36px;
+    }
+
+    .result-adventures-title {
+        font-size: 22px;
+    }
+
+    .result-adventure-inner {
+        min-height: 76px;
+        padding: 18px;
+    }
+
+    .result-adventure-name {
+        font-size: 17px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .result-adventure-card {
+        transition: none;
+    }
+}
+
+
+/* =========================================
+   TERRACOTTA — CONTACT
+========================================= */
+
+.result-contact-section {
+    width: 100%;
+    margin-top: 36px;
+    margin-bottom: 50px;
+}
+
+/* Bouton noir principal */
+
+.result-contact-button {
+    display: block;
+    width: 100%;
+    min-height: 72px;
+    padding: 20px 28px;
+    border: 1px solid #202020;
+    border-radius: 20px;
+    background: #202020;
+    color: #FFFFFF;
+    font: inherit;
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.result-contact-button:hover {
+    background: #383838;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Formulaire */
+
+.contact-form {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 42px;
+    border: 1px solid rgba(46, 46, 46, 0.10);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.contact-form[hidden],
+.result-contact-button[hidden] {
+    display: none !important;
+}
+
+.contact-title {
+    margin: 0 0 12px;
+    color: #2E2E2E;
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.contact-intro {
+    max-width: 520px;
+    margin: 0 auto 32px;
+    color: #555555;
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.contact-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 22px;
+}
+
+.contact-label {
+    color: #2E2E2E;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.contact-input {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 52px;
+    padding: 14px 17px;
+    border: 1px solid rgba(46, 46, 46, 0.16);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.75);
+    color: #2E2E2E;
+    font: inherit;
+    font-size: 15px;
+    outline: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.contact-input:focus {
+    border-color: #39FF13;
+    box-shadow: 0 0 0 3px rgba(57, 255, 19, 0.12);
+}
+
+.contact-textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.contact-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 10px 0 28px;
+    color: #555555;
+    font-size: 13px;
+    line-height: 1.6;
+    cursor: pointer;
+}
+
+.contact-consent input {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: #39FF13;
+}
+
+.contact-submit {
+    width: 100%;
+    min-height: 60px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(110deg, #39FF13, #9CFF00);
+    color: #202020;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.contact-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.contact-submit:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.contact-status {
+    margin: 16px 0 0;
+    color: #A33A30;
+    font-size: 14px;
+    text-align: center;
+}
+
+.contact-honeypot {
+    display: none !important;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .contact-form {
+        padding: 28px 20px;
+        border-radius: 20px;
+    }
+
+    .contact-title {
+        font-size: 25px;
+    }
+
+    .result-contact-button {
+        min-height: 64px;
+        font-size: 17px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .result-contact-button,
+    .contact-submit {
+        transition: none;
+    }
+}
