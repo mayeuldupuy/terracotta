@@ -1,0 +1,241 @@
+/* =====================================
+   1. VARIABLES GRAPHIQUES
+===================================== */
+
+:root {
+    --color-background: #FFFFFF;
+    --color-text: #2E2E2E;
+    --color-black: #000000;
+
+    --color-green-start: #39FF13;
+    --color-green-end: #9CFF00;
+
+    --font-main: Arial, sans-serif;
+
+    --radius-button: 40px;
+
+    --content-width: 1100px;
+}
+
+
+/* =====================================
+   2. RESET
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--color-background);
+    color: var(--color-text);
+    min-height: 100vh;
+}
+
+
+/* =====================================
+   FOND TOPOGRAPHIQUE INTERACTIF
+===================================== */
+
+body {
+    position: relative;
+    overflow-x: hidden;
+    background: #FFFFFF;
+}
+
+#topography-canvas {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+#app {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+}
+
+
+/* =====================================
+   4. STRUCTURE GÉNÉRALE
+===================================== */
+
+#app {
+    min-height: 100vh;
+}
+
+.screen {
+    display: none;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 60px 30px;
+}
+
+
+/* =====================================
+   5. EN-TÊTE
+===================================== */
+
+.site-header {
+    height: 80px;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    z-index: 2;
+}
+
+.brand {
+    color: var(--color-text);
+    text-decoration: none;
+
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 5px;
+}
+
+
+/* =====================================
+   6. TYPOGRAPHIE
+===================================== */
+
+h1 {
+    color: var(--color-text);
+    font-size: clamp(36px, 5vw, 62px);
+    line-height: 1.12;
+    font-weight: 600;
+    letter-spacing: -2px;
+}
+
+h2 {
+    font-size: 27px;
+    font-weight: 600;
+}
+
+p {
+    line-height: 1.7;
+}
+
+.eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+}
+
+.intro {
+    font-size: 17px;
+    line-height: 1.8;
+    max-width: 600px;
+}
+
+
+/* =====================================
+   7. BOUTONS LIQUID GLASS
+===================================== */
+
+.glass-button,
+.answer-button {
+    position: relative;
+    isolation: isolate;
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-button);
+
+    background:
+        linear-gradient(
+            rgba(255, 255, 255, 0.88),
+            rgba(255, 255, 255, 0.88)
+        ) padding-box,
+        linear-gradient(
+            110deg,
+            var(--color-green-start),
+            var(--color-green-end)
+        ) border-box;
+
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.glass-button:hover,
+.answer-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 22px rgba(57, 255, 19, 0.14);
+}
+
+.glass-button:focus-visible,
+.answer-button:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 4px;
+}
+
+
+/* =====================================
+   8. RESPONSIVE
+===================================== */
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 45px 22px;
+    }
+
+    .site-header {
+        height: 70px;
+    }
+
+    .screen {
+        min-height: calc(100vh - 70px);
+    }
+
+    h1 {
+        font-size: 39px;
+        letter-spacing: -1.5px;
+    }
+
+    .intro {
+        font-size: 15px;
+    }
+
+    .brand {
+        font-size: 15px;
+    }
+
+}

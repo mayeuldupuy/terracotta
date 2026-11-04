@@ -1,0 +1,77 @@
+/* =====================================
+   QUESTIONNAIRE
+===================================== */
+
+.questionnaire-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    padding-top: 55px;
+}
+
+.progress-track {
+    width: 100%;
+    max-width: 420px;
+    height: 3px;
+    background: rgba(46, 46, 46, 0.10);
+    border-radius: 10px;
+    margin-bottom: 55px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 10%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        var(--color-green-start),
+        var(--color-green-end)
+    );
+}
+
+.questionnaire-content h1 {
+    font-size: clamp(30px, 4vw, 46px);
+    margin-bottom: 20px;
+}
+
+.questionnaire-content .intro {
+    margin-bottom: 45px;
+}
+
+.answer-grid {
+    width: 100%;
+    max-width: 700px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.answer-button {
+    min-height: 75px;
+    padding: 18px;
+    font-size: 16px;
+}
+
+
+/* Adaptation mobile */
+
+@media (max-width: 600px) {
+
+    .answer-grid {
+        grid-template-columns: 1fr;
+        gap: 13px;
+    }
+
+    .answer-button {
+        min-height: 62px;
+    }
+
+    .progress-track {
+        margin-bottom: 40px;
+    }
+
+}

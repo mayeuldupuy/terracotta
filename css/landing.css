@@ -1,0 +1,33 @@
+/* =====================================
+   LANDING PAGE
+===================================== */
+
+.landing-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    padding-bottom: 110px;
+}
+
+.landing-content h1 {
+    margin-bottom: 28px;
+}
+
+.landing-content .intro {
+    margin-bottom: 42px;
+}
+
+.landing-content .glass-button {
+    padding: 17px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.landing-content .glass-button span {
+    font-size: 20px;
+}

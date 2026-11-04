@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Explorez vos envies d'aventure et découvrez les expériences nature qui vous correspondent.">
+
+    <title>Terracotta — Explorez votre nature</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/landing.css">
+    <link rel="stylesheet" href="./css/questionnaire.css">
+    <link rel="stylesheet" href="./css/results.css">
+
+    <script src="./js/topography.js" defer></script>
+    <script src="./js/main.js" defer></script>
+</head>
+
+<body>
+
+    <!-- FOND TOPOGRAPHIQUE INTERACTIF -->
+    <canvas id="topography-canvas"></canvas>
+
+    <main id="app">
+
+        <!-- EN-TÊTE COMMUN -->
+        <header class="site-header">
+            <a href="#" class="brand" aria-label="Terracotta - Accueil">
+                TERRACOTTA
+            </a>
+        </header>
+
+        <!-- ÉCRAN 1 : ACCUEIL -->
+        <section id="landing" class="screen active">
+
+            <div class="container landing-content">
+
+                <p class="eyebrow">L'AVENTURE COMMENCE ICI</p>
+
+                <h1>Quel aventurier<br>êtes-vous ?</h1>
+
+                <p class="intro">
+                    Et si vous preniez le temps de découvrir
+                    les expériences en pleine nature qui
+                    vous correspondent vraiment ?
+                </p>
+
+                <button id="start-button" class="glass-button">
+                    Démarrer l'exploration
+                    <span aria-hidden="true">↗</span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ÉCRAN 2 : QUESTIONNAIRE -->
+        <section id="questionnaire" class="screen">
+
+            <div class="container questionnaire-content">
+
+                <p class="eyebrow">VOTRE EXPLORATION</p>
+
+                <div class="progress-track">
+                    <div class="progress-fill"></div>
+                </div>
+
+                <h1>Quelles activités vous attirent ?</h1>
+
+                <p class="intro">
+                    Parmi ces activités, lesquelles vous donnent
+                    le plus envie ?
+                </p>
+
+                <div class="answer-grid">
+
+                    <button class="answer-button">Courir</button>
+                    <button class="answer-button">Faire du vélo</button>
+                    <button class="answer-button">Randonnée</button>
+                    <button class="answer-button">Pagayer</button>
+                    <button class="answer-button">Grimper</button>
+                    <button class="answer-button">Autre activité</button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ÉCRAN 3 : RÉSULTATS -->
+        <section id="results" class="screen">
+
+            <div class="container results-content">
+
+                <p class="eyebrow">VOTRE PROFIL</p>
+
+                <h1>Votre nature d'aventurier</h1>
+
+                <div id="results-container">
+
+                    <h2>Votre profil se dessine...</h2>
+
+                    <p class="intro">
+                        Une aventure adaptée à vos envies,
+                        votre expérience et vos aspirations.
+                    </p>
+
+                </div>
+
+                <div class="recommendations">
+
+                    <h2>Nos recommandations</h2>
+
+                    <div class="adventure-list">
+
+                        <article class="adventure-item">
+                            <span>01</span>
+                            <h3>Trek dans le Vercors</h3>
+                            <span aria-hidden="true">↗</span>
+                        </article>
+
+                        <article class="adventure-item">
+                            <span>02</span>
+                            <h3>Bivouac sur les hauts plateaux</h3>
+                            <span aria-hidden="true">↗</span>
+                        </article>
+
+                        <article class="adventure-item">
+                            <span>03</span>
+                            <h3>Trail sous les sapins</h3>
+                            <span aria-hidden="true">↗</span>
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
