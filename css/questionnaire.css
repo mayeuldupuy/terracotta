@@ -1,107 +1,143 @@
-/* =====================================
-   QUESTIONNAIRE
-===================================== */
+
+/* =========================================
+   TERRACOTTA — QUESTIONNAIRE V2
+   Mise en page compacte et responsive
+========================================= */
+
+/* Structure principale */
+
+#questionnaire {
+    min-height: calc(100dvh - 80px);
+}
 
 .questionnaire-content {
+    width: 100%;
+    max-width: 1100px;
+
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+
     text-align: center;
 
-    padding-top: 55px;
+    padding-top: 16px;
+    padding-bottom: 20px;
 }
+
+/* Catégorie */
+
+.questionnaire-content > .eyebrow {
+    margin-bottom: 14px;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+}
+
+/* Barre de progression */
 
 .progress-track {
     width: 100%;
     max-width: 420px;
     height: 3px;
+
+    margin-bottom: 14px;
+
     background: rgba(46, 46, 46, 0.10);
     border-radius: 10px;
-    margin-bottom: 55px;
     overflow: hidden;
 }
 
 .progress-fill {
-    width: 10%;
+    width: 0%;
     height: 100%;
+
     background: linear-gradient(
         90deg,
         var(--color-green-start),
         var(--color-green-end)
     );
+
+    transition: width 0.25s ease;
 }
 
-.questionnaire-content h1 {
-    font-size: clamp(30px, 4vw, 46px);
-    margin-bottom: 20px;
-}
+/* Compteur */
 
-.questionnaire-content .intro {
-    margin-bottom: 45px;
-}
+.question-counter {
+    margin-bottom: 16px;
 
-.answer-grid {
-    width: 100%;
-    max-width: 700px;
-
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-}
-
-.answer-button {
-    min-height: 75px;
-    padding: 18px;
-    font-size: 16px;
-}
-
-
-/* Adaptation mobile */
-
-@media (max-width: 600px) {
-
-    .answer-grid {
-        grid-template-columns: 1fr;
-        gap: 13px;
-    }
-
-    .answer-button {
-        min-height: 62px;
-    }
-
-    .progress-track {
-        margin-bottom: 40px;
-    }
-
+    color: #777777;
+    font-size: 12px;
+    line-height: 1.4;
 }
 
 /* Zone dynamique */
 
 #question-container {
     width: 100%;
+    max-width: 760px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+
     text-align: center;
+
+    min-height: 0;
 }
 
+.questionnaire-content h1,
 #question-container h1 {
-    font-size: clamp(30px, 4vw, 46px);
-    margin-bottom: 20px;
+    max-width: 760px;
+
+    margin-bottom: 12px;
+
+    font-size: clamp(25px, 3vw, 38px);
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: -0.035em;
 }
 
+/* Description éventuelle */
+
+.questionnaire-content .intro,
 #question-container .intro {
-    margin-bottom: 45px;
+    max-width: 640px;
+
+    margin-bottom: 20px;
+
+    font-size: 15px;
+    line-height: 1.5;
 }
 
-.question-counter {
-    font-size: 13px;
-    color: #777;
-    margin-bottom: 25px;
+/* Grille des réponses */
+
+.answer-grid {
+    width: 100%;
+    max-width: 700px;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
 }
 
-/* Réponses sélectionnées */
+/* Boutons de réponse */
+
+.answer-button {
+    width: 100%;
+    min-height: 58px;
+
+    padding: 12px 16px;
+
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+/* Réponse sélectionnée */
 
 .answer-button.selected {
     background:
@@ -118,41 +154,217 @@
     box-shadow: 0 0 18px rgba(57, 255, 19, 0.12);
 }
 
-/* Navigation */
+/* Message de validation */
+
+.question-error {
+    width: 100%;
+    max-width: 700px;
+
+    min-height: 20px;
+    margin-top: 8px;
+
+    color: #A33A30;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* =========================================
+   NAVIGATION STABLE
+========================================= */
 
 .question-navigation {
+    width: 100%;
+    max-width: 700px;
+
     display: flex;
-    justify-content: center;
-    gap: 18px;
-    margin-top: 40px;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    /* Pousse la navigation vers le bas */
+    margin-top: auto;
+    padding-top: 22px;
+    padding-bottom: 6px;
+
+    flex-wrap: nowrap;
 }
 
 .question-navigation .glass-button {
-    padding: 15px 30px;
+    min-width: 138px;
+    min-height: 46px;
+
+    padding: 11px 24px;
+
+    font-size: 14px;
+    line-height: 1.3;
 }
 
 .question-navigation button:disabled {
     opacity: 0.35;
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
 }
 
-/* Messages de validation */
+/* =========================================
+   ORDINATEUR : HAUTEUR DE FENÊTRE
+========================================= */
 
-.question-error {
-    color: #A33A30;
-    font-size: 14px;
-    margin-top: 18px;
-    min-height: 22px;
+@media (min-width: 601px) {
+
+    #questionnaire .questionnaire-content {
+        min-height: calc(100dvh - 80px);
+    }
+
 }
+
+/* =========================================
+   MOBILE
+========================================= */
 
 @media (max-width: 600px) {
+
+    #questionnaire {
+        min-height: calc(100dvh - 70px);
+    }
+
+    #questionnaire .questionnaire-content {
+        min-height: calc(100dvh - 70px);
+
+        padding: 10px 18px 14px;
+    }
+
+    .questionnaire-content > .eyebrow {
+        margin-bottom: 10px;
+        font-size: 9px;
+        letter-spacing: 2px;
+    }
+
+    .progress-track {
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .question-counter {
+        margin-bottom: 12px;
+        font-size: 11px;
+    }
+
+    #question-container h1,
+    .questionnaire-content h1 {
+        margin-bottom: 10px;
+
+        font-size: clamp(22px, 5.5vw, 29px);
+        line-height: 1.2;
+        letter-spacing: -0.025em;
+    }
+
+    #question-container .intro,
+    .questionnaire-content .intro {
+        margin-bottom: 14px;
+
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    /* Une colonne pour préserver
+       la lisibilité des libellés longs */
+
+    .answer-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .answer-button {
+        min-height: 43px;
+
+        padding: 9px 13px;
+
+        font-size: 13px;
+        line-height: 1.3;
+    }
+
+    .question-error {
+        min-height: 18px;
+        margin-top: 6px;
+        font-size: 11px;
+    }
+
     .question-navigation {
         gap: 12px;
+
+        margin-top: auto;
+        padding-top: 16px;
+        padding-bottom: 4px;
     }
 
     .question-navigation .glass-button {
-        padding: 14px 22px;
+        flex: 1;
+        min-width: 0;
+        min-height: 43px;
+
+        padding: 10px 14px;
+
+        font-size: 13px;
     }
+
+}
+
+/* =========================================
+   PETITS ÉCRANS EN HAUTEUR
+========================================= */
+
+@media (max-height: 740px) {
+
+    .questionnaire-content {
+        padding-top: 8px;
+        padding-bottom: 12px;
+    }
+
+    .questionnaire-content > .eyebrow {
+        margin-bottom: 8px;
+    }
+
+    .progress-track {
+        margin-bottom: 8px;
+    }
+
+    .question-counter {
+        margin-bottom: 8px;
+    }
+
+    #question-container h1 {
+        margin-bottom: 8px;
+    }
+
+    #question-container .intro {
+        margin-bottom: 12px;
+    }
+
+    .answer-grid {
+        gap: 8px;
+    }
+
+    .answer-button {
+        min-height: 42px;
+        padding: 8px 12px;
+    }
+
+    .question-navigation {
+        padding-top: 12px;
+    }
+
+}
+
+/* =========================================
+   ACCESSIBILITÉ
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .progress-fill {
+        transition: none;
+    }
+
 }

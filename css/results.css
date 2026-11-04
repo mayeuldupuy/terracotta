@@ -1,182 +1,152 @@
-/* =====================================
-   PAGE RÉSULTATS
-===================================== */
 
-.results-content {
+/* =========================================
+   TERRACOTTA — RÉSULTATS V2
+   Mise en page compacte et responsive
+========================================= */
+
+/* Structure de la page */
+
+#results .results-content {
+    width: min(100% - 40px, 900px);
+    max-width: 900px;
+
+    margin: 0 auto;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
 
-    padding-top: 55px;
+    padding: 10px 0 30px;
+
+    text-align: center;
 }
+
+/* Titre principal */
 
 .results-content > h1 {
-    margin-bottom: 40px;
+    margin: 0 0 22px;
+
+    font-size: clamp(32px, 4.5vw, 54px);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
 }
+
+/* Container global */
 
 #results-container {
     width: 100%;
     max-width: 750px;
-    padding: 35px;
-    margin-bottom: 65px;
+
+    margin: 0;
+    padding: 20px;
 
     background: rgba(255, 255, 255, 0.65);
+
     border: 1px solid rgba(46, 46, 46, 0.08);
     border-radius: 20px;
 
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
-
-#results-container h2 {
-    margin-bottom: 18px;
-}
-
-#results-container .intro {
-    margin: 0 auto;
-}
-
-.recommendations {
-    width: 100%;
-    max-width: 850px;
-    text-align: left;
-    margin-bottom: 60px;
-}
-
-.recommendations h2 {
-    margin-bottom: 25px;
-}
-
-.adventure-list {
-    display: flex;
-    flex-direction: column;
-}
-
-.adventure-item {
-    display: grid;
-    grid-template-columns: 45px 1fr 30px;
-    align-items: center;
-    gap: 15px;
-
-    padding: 25px 10px;
-
-    border-bottom: 1px solid rgba(46, 46, 46, 0.15);
-}
-
-.adventure-item > span:first-child {
-    font-size: 12px;
-    color: #777;
-}
-
-.adventure-item h3 {
-    font-size: 19px;
-    font-weight: 500;
-}
-
-.adventure-item > span:last-child {
-    text-align: right;
-}
-
-@media (max-width: 600px) {
-
-    #results-container {
-        padding: 25px 18px;
-    }
-
-    .adventure-item h3 {
-        font-size: 16px;
-    }
-
-}
-
 
 /* =========================================
-   TERRACOTTA — PAGE RÉSULTATS
+   CARTE DU PROFIL
 ========================================= */
-
-#results .results-content {
-    width: min(100% - 40px, 900px);
-    margin: 0 auto;
-    padding-bottom: 80px;
-}
-
-#results-container {
-    width: 100%;
-}
-
-/* Container principal du profil */
 
 .result-profile-card {
     width: 100%;
     box-sizing: border-box;
-    padding: 48px 40px;
+
+    padding: 26px 30px;
+
     border: 1px solid rgba(46, 46, 46, 0.10);
-    border-radius: 24px;
+    border-radius: 22px;
+
     background: rgba(255, 255, 255, 0.82);
+
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
+
     text-align: center;
 }
 
 .result-profile-eyebrow {
-    margin: 0 0 24px;
+    margin: 0 0 14px;
+
     color: #2E2E2E;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: 0.28em;
+
+    letter-spacing: 0.25em;
     text-transform: uppercase;
 }
 
 .result-profile-name {
-    margin: 0 0 12px;
+    margin: 0 0 8px;
+
     color: #2E2E2E;
-    font-size: clamp(38px, 6vw, 64px);
+
+    font-size: clamp(36px, 5vw, 54px);
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.08;
+
     letter-spacing: -0.04em;
 }
 
 .result-profile-description {
     max-width: 620px;
+
     margin: 0 auto;
+
     color: #2E2E2E;
-    font-size: 17px;
+
+    font-size: 15px;
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.45;
 }
 
-/* Section aventures */
+/* =========================================
+   SECTION AVENTURES
+========================================= */
 
 .result-adventures {
     width: 100%;
-    margin-top: 52px;
+    margin-top: 24px;
 }
 
 .result-adventures-title {
-    margin: 0 0 24px;
+    margin: 0 0 16px;
+
     color: #2E2E2E;
-    font-size: 26px;
+
+    font-size: 23px;
     font-weight: 600;
+
     text-align: center;
 }
 
 .result-adventure-grid {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+
+    gap: 10px;
 }
 
-/* Bordure dégradée vert néon */
+/* Bordures dégradées vert néon */
 
 .result-adventure-card {
     padding: 2px;
-    border-radius: 20px;
+
+    border-radius: 18px;
+
     background: linear-gradient(
         115deg,
         #39FF13 0%,
         #9CFF00 100%
     );
+
     box-shadow: 0 3px 18px rgba(57, 255, 19, 0.04);
+
     transition:
         transform 0.25s ease,
         box-shadow 0.25s ease;
@@ -186,96 +156,70 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 84px;
+
+    min-height: 58px;
+
     box-sizing: border-box;
-    padding: 20px 28px;
-    border-radius: 18px;
+
+    padding: 12px 20px;
+
+    border-radius: 16px;
+
     background: rgba(255, 255, 255, 0.91);
+
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
 }
 
 .result-adventure-name {
     margin: 0;
+
     color: #2E2E2E;
-    font-size: 19px;
+
+    font-size: 16px;
     font-weight: 500;
-    line-height: 1.4;
+    line-height: 1.35;
+
     text-align: center;
 }
 
 .result-adventure-card:hover {
     transform: translateY(-3px);
+
     box-shadow: 0 8px 28px rgba(57, 255, 19, 0.12);
 }
 
-/* Responsive */
-
-@media (max-width: 600px) {
-    #results .results-content {
-        width: min(100% - 32px, 900px);
-        padding-bottom: 48px;
-    }
-
-    .result-profile-card {
-        padding: 36px 22px;
-        border-radius: 20px;
-    }
-
-    .result-profile-description {
-        font-size: 15px;
-    }
-
-    .result-adventures {
-        margin-top: 36px;
-    }
-
-    .result-adventures-title {
-        font-size: 22px;
-    }
-
-    .result-adventure-inner {
-        min-height: 76px;
-        padding: 18px;
-    }
-
-    .result-adventure-name {
-        font-size: 17px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .result-adventure-card {
-        transition: none;
-    }
-}
-
-
 /* =========================================
-   TERRACOTTA — CONTACT
+   CONTACT — BOUTON PRINCIPAL
 ========================================= */
 
 .result-contact-section {
     width: 100%;
-    margin-top: 36px;
-    margin-bottom: 50px;
-}
 
-/* Bouton noir principal */
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
 
 .result-contact-button {
     display: block;
+
     width: 100%;
-    min-height: 72px;
-    padding: 20px 28px;
+    min-height: 54px;
+
+    padding: 12px 22px;
+
     border: 1px solid #202020;
-    border-radius: 20px;
+    border-radius: 16px;
+
     background: #202020;
     color: #FFFFFF;
+
     font: inherit;
-    font-size: 19px;
+    font-size: 16px;
     font-weight: 600;
+
     cursor: pointer;
+
     transition:
         background 0.25s ease,
         transform 0.25s ease,
@@ -285,18 +229,25 @@
 .result-contact-button:hover {
     background: #383838;
     transform: translateY(-2px);
+
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-/* Formulaire */
+/* =========================================
+   FORMULAIRE FORMSPREE
+========================================= */
 
 .contact-form {
     box-sizing: border-box;
+
     width: 100%;
-    padding: 42px;
+    padding: 30px;
+
     border: 1px solid rgba(46, 46, 46, 0.10);
-    border-radius: 24px;
+    border-radius: 22px;
+
     background: rgba(255, 255, 255, 0.88);
+
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
 }
@@ -307,47 +258,63 @@
 }
 
 .contact-title {
-    margin: 0 0 12px;
+    margin: 0 0 10px;
+
     color: #2E2E2E;
-    font-size: 30px;
+
+    font-size: 26px;
     font-weight: 600;
+
     text-align: center;
 }
 
 .contact-intro {
     max-width: 520px;
-    margin: 0 auto 32px;
+
+    margin: 0 auto 22px;
+
     color: #555555;
-    font-size: 15px;
-    line-height: 1.6;
+
+    font-size: 14px;
+    line-height: 1.5;
+
     text-align: center;
 }
 
 .contact-field {
     display: flex;
     flex-direction: column;
-    gap: 9px;
-    margin-bottom: 22px;
+
+    gap: 7px;
+    margin-bottom: 16px;
 }
 
 .contact-label {
     color: #2E2E2E;
-    font-size: 14px;
+
+    font-size: 13px;
     font-weight: 500;
 }
 
 .contact-input {
     box-sizing: border-box;
+
     width: 100%;
-    min-height: 52px;
-    padding: 14px 17px;
+    min-height: 46px;
+
+    padding: 11px 14px;
+
     border: 1px solid rgba(46, 46, 46, 0.16);
-    border-radius: 14px;
+    border-radius: 13px;
+
     background: rgba(255, 255, 255, 0.75);
     color: #2E2E2E;
+
     font: inherit;
-    font-size: 15px;
+    font-size: 14px;
+
     outline: none;
+
     transition:
         border-color 0.2s ease,
         box-shadow 0.2s ease;
@@ -355,45 +322,64 @@
 
 .contact-input:focus {
     border-color: #39FF13;
+
     box-shadow: 0 0 0 3px rgba(57, 255, 19, 0.12);
 }
 
 .contact-textarea {
-    min-height: 110px;
+    min-height: 95px;
     resize: vertical;
 }
 
 .contact-consent {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    margin: 10px 0 28px;
+
+    gap: 10px;
+
+    margin: 8px 0 20px;
+
     color: #555555;
-    font-size: 13px;
-    line-height: 1.6;
+
+    font-size: 12px;
+    line-height: 1.5;
+
     cursor: pointer;
 }
 
 .contact-consent input {
     width: 17px;
     height: 17px;
+
     flex-shrink: 0;
     margin-top: 2px;
+
     accent-color: #39FF13;
 }
 
 .contact-submit {
     width: 100%;
-    min-height: 60px;
-    padding: 16px 24px;
+    min-height: 52px;
+
+    padding: 13px 20px;
+
     border: none;
-    border-radius: 16px;
-    background: linear-gradient(110deg, #39FF13, #9CFF00);
+    border-radius: 15px;
+
+    background: linear-gradient(
+        110deg,
+        #39FF13,
+        #9CFF00
+    );
+
     color: #202020;
+
     font: inherit;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
+
     cursor: pointer;
+
     transition: transform 0.2s ease;
 }
 
@@ -407,9 +393,11 @@
 }
 
 .contact-status {
-    margin: 16px 0 0;
+    margin: 14px 0 0;
+
     color: #A33A30;
-    font-size: 14px;
+
+    font-size: 13px;
     text-align: center;
 }
 
@@ -417,27 +405,155 @@
     display: none !important;
 }
 
-/* Mobile */
+/* =========================================
+   RESPONSIVE MOBILE
+========================================= */
 
 @media (max-width: 600px) {
-    .contact-form {
-        padding: 28px 20px;
-        border-radius: 20px;
+
+    #results .results-content {
+        width: min(100% - 28px, 900px);
+
+        padding-top: 8px;
+        padding-bottom: 24px;
     }
 
-    .contact-title {
-        font-size: 25px;
+    .results-content > h1 {
+        margin-bottom: 16px;
+
+        font-size: clamp(29px, 7vw, 38px);
+        line-height: 1.12;
+    }
+
+    #results-container {
+        padding: 12px;
+        border-radius: 18px;
+    }
+
+    .result-profile-card {
+        padding: 22px 14px;
+        border-radius: 18px;
+    }
+
+    .result-profile-eyebrow {
+        margin-bottom: 10px;
+        font-size: 9px;
+        letter-spacing: 0.2em;
+    }
+
+    .result-profile-name {
+        margin-bottom: 8px;
+        font-size: clamp(32px, 9vw, 43px);
+    }
+
+    .result-profile-description {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .result-adventures {
+        margin-top: 20px;
+    }
+
+    .result-adventures-title {
+        margin-bottom: 12px;
+        font-size: 19px;
+    }
+
+    .result-adventure-grid {
+        gap: 9px;
+    }
+
+    .result-adventure-card {
+        border-radius: 15px;
+    }
+
+    .result-adventure-inner {
+        min-height: 51px;
+        padding: 10px 12px;
+        border-radius: 13px;
+    }
+
+    .result-adventure-name {
+        font-size: 14px;
+    }
+
+    .result-contact-section {
+        margin-top: 16px;
+        margin-bottom: 4px;
     }
 
     .result-contact-button {
-        min-height: 64px;
-        font-size: 17px;
+        min-height: 50px;
+        padding: 11px 16px;
+
+        border-radius: 15px;
+        font-size: 15px;
     }
+
+    .contact-form {
+        padding: 22px 16px;
+        border-radius: 18px;
+    }
+
+    .contact-title {
+        font-size: 23px;
+    }
+
+    .contact-intro {
+        margin-bottom: 18px;
+        font-size: 13px;
+    }
+
+    .contact-field {
+        margin-bottom: 14px;
+    }
+
 }
 
+/* =========================================
+   ÉCRANS DE FAIBLE HAUTEUR
+========================================= */
+
+@media (max-height: 740px) {
+
+    #results .results-content {
+        padding-top: 4px;
+    }
+
+    .results-content > h1 {
+        margin-bottom: 14px;
+    }
+
+    .result-profile-card {
+        padding-top: 18px;
+        padding-bottom: 18px;
+    }
+
+    .result-adventures {
+        margin-top: 16px;
+    }
+
+    .result-adventures-title {
+        margin-bottom: 10px;
+    }
+
+    .result-adventure-grid {
+        gap: 8px;
+    }
+
+}
+
+/* =========================================
+   ACCESSIBILITÉ
+========================================= */
+
 @media (prefers-reduced-motion: reduce) {
+
+    .result-adventure-card,
     .result-contact-button,
     .contact-submit {
         transition: none;
     }
+
 }
