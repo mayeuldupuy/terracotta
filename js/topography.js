@@ -12,7 +12,7 @@ const ctx = canvas.getContext("2d");
 
 const CONFIG = {
     // Précision du relief
-    gridSize: 6,
+    gridSize: 15,
 
     // Densité des courbes
     contourStep: 0.065,
@@ -24,9 +24,9 @@ const CONFIG = {
     majorLineColor: "rgba(67, 86, 69, 0.32)",
 
     // Interaction souris
-    mouseRadius: 0.15,
-    mouseStrength: 0.48,
-    mouseInertia: 0.075,
+    mouseRadius: 0.11,
+    mouseStrength: 0.40,
+    mouseInertia: 0.150,
 
     // Détails topographiques
     noiseScale: 5,
@@ -35,7 +35,7 @@ const CONFIG = {
     noiseStrength: 0.17,
 
     // Déformation naturelle
-    warpStrength: 0.035
+    warpStrength: 0.080
 };
 
 
@@ -158,6 +158,8 @@ function fractalNoise(x, y) {
 // =========================================
 // 4. TERRAIN TOPOGRAPHIQUE
 // =========================================
+
+// Reliefs gaussiens
 
 function gaussian(x, y, cx, cy, radius, intensity) {
     const dx = x - cx;
