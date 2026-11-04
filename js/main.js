@@ -3,6 +3,8 @@ import {
     getAnswers
 } from "./questionnaire.js";
 
+import { renderResults } from "./results.js";
+
 const screens = document.querySelectorAll(".screen");
 const startButton = document.getElementById("start-button");
 
@@ -23,24 +25,8 @@ function showScreen(screenId) {
 
 function showResults() {
     const answers = getAnswers();
-    const resultsContainer = document.getElementById(
-        "results-container"
-    );
 
-    resultsContainer.replaceChildren();
-
-    const title = document.createElement("h2");
-    title.textContent = "Exploration terminée";
-
-    const description = document.createElement("p");
-    description.className = "intro";
-    description.textContent =
-        "Vos réponses ont été enregistrées localement. " +
-        "Le calcul de votre profil sera intégré à la prochaine étape.";
-
-    resultsContainer.append(title, description);
-
-    console.log("Réponses Terracotta :", answers);
+    renderResults(answers);
 
     showScreen("results");
 }

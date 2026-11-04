@@ -188,7 +188,7 @@ function goNext() {
     const question = getCurrentQuestion();
     const selected = getSelectedAnswers(question.id);
 
-    if (selected.length === 0) {
+    if (selected.length === 0 && !question.optional) {
         showError("Sélectionnez au moins une réponse pour continuer.");
         return;
     }
