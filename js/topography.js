@@ -36,7 +36,14 @@ const CONFIG = {
 
     // Performance
     maxFPS: 30,
-    mobileGridSize: 9
+    mobileGridSize: 9,
+
+    // Tracé de randonnée
+    trailColor: "rgba(57, 255, 19, 0.35)",
+    trailMarkerColor: "rgba(26, 25, 25, 0.4)",
+    trailWidth: 1.6,
+    trailDash: [15, 6],
+    trailMouseStrength: 0.250
 };
 
 // =========================================
@@ -404,6 +411,188 @@ function drawContours() {
     }
 }
 
+
+/* =========================================
+   TERRACOTTA — TRACÉ DE RANDONNÉE GR
+========================================= */
+
+// Itinéraire de référence en coordonnées normalisées.
+// Le tracé conserve sa forme sur toutes les résolutions.
+
+const TRAIL_POINTS = [
+    // Début : courbes douces
+    { x: -0.04, y: 0.76 },
+    { x: 0.05, y: 0.70 },
+    { x: 0.13, y: 0.73 },
+    { x: 0.21, y: 0.62 },
+    { x: 0.29, y: 0.60 },
+
+    // Première zone sinueuse
+    { x: 0.35, y: 0.66 },
+    { x: 0.37, y: 0.60 },
+    { x: 0.36, y: 0.48 },
+    { x: 0.46, y: 0.52 },
+
+    // Transition douce
+    { x: 0.53, y: 0.44 },
+    { x: 0.60, y: 0.47 },
+
+    // Deuxième zone de lacets
+    { x: 0.65, y: 0.36 },
+    { x: 0.64, y: 0.28 },
+    { x: 0.72, y: 0.38 },
+    { x: 0.77, y: 0.30 },
+
+    // Fin : courbes plus fluides
+    { x: 0.84, y: 0.34 },
+    { x: 0.90, y: 0.24 },
+    { x: 0.96, y: 0.27 },
+    { x: 1.04, y: 0.20 }
+];
+
+// Repères placés sur certains points du chemin.
+const TRAIL_MARKERS = [3, 12];
+
+// Déformation locale autour de la souris.
+function deformTrailPoint(point) {
+    const dx = point.x - pointer.x;
+    const dy = point.y - pointer.y;
+
+    const radius = CONFIG.mouseRadius * 1.8;
+    const distanceSquared = dx * dx + dy * dy;
+
+    const influence = Math.exp(
+        -distanceSquared / (2 * radius * radius)
+    );
+
+    const displacement =
+        influence *
+        pointer.influence *
+        CONFIG.trailMouseStrength;
+
+    // Déplacement dans une direction tangentielle
+    // pour éviter une simple translation du chemin.
+    return {
+        x: point.x - dy * displacement * 3,
+        y: point.y + dx * displacement * 3
+    };
+}
+
+// Interpolation Catmull-Rom :
+// chemin fluide traversant tous les points de référence.
+function trailCurvePoint(p0, p1, p2, p3, t) {
+    const t2 = t * t;
+    const t3 = t2 * t;
+
+    function interpolateCoordinate(key) {
+        const a = p0[key];
+        const b = p1[key];
+        const c = p2[key];
+        const d = p3[key];
+
+        return 0.5 * (
+            2 * b +
+            (-a + c) * t +
+            (2 * a - 5 * b + 4 * c - d) * t2 +
+            (-a + 3 * b - 3 * c + d) * t3
+        );
+    }
+
+    return {
+        x: interpolateCoordinate("x"),
+        y: interpolateCoordinate("y")
+    };
+}
+
+function drawTrail() {
+    if (!width || !height) return;
+
+    const points = TRAIL_POINTS.map(deformTrailPoint);
+
+    ctx.save();
+
+    // Ligne principale
+    ctx.beginPath();
+
+    ctx.strokeStyle = CONFIG.trailColor;
+    ctx.lineWidth = CONFIG.trailWidth;
+    ctx.setLineDash(CONFIG.trailDash);
+
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    const first = points[0];
+    ctx.moveTo(first.x * width, first.y * height);
+
+    // Interpolation par petits segments.
+    // Coût négligeable comparé aux courbes de niveau.
+    const segmentsPerSection = 12;
+
+    for (let i = 0; i < points.length - 1; i++) {
+        const p0 = points[Math.max(0, i - 1)];
+        const p1 = points[i];
+        const p2 = points[i + 1];
+        const p3 = points[Math.min(points.length - 1, i + 2)];
+
+        for (let j = 1; j <= segmentsPerSection; j++) {
+            const t = j / segmentsPerSection;
+
+            const point = trailCurvePoint(
+                p0, p1, p2, p3, t
+            );
+
+            ctx.lineTo(
+                point.x * width,
+                point.y * height
+            );
+        }
+    }
+
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Repères cartographiques discrets
+    TRAIL_MARKERS.forEach((index, markerIndex) => {
+        const point = points[index];
+
+        if (!point) return;
+
+        const x = point.x * width;
+        const y = point.y * height;
+
+        // Petit cercle à fond blanc translucide
+        ctx.beginPath();
+        ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+
+        ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+        ctx.fill();
+
+        ctx.strokeStyle = CONFIG.trailMarkerColor;
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+
+        // Point central
+        ctx.beginPath();
+        ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = CONFIG.trailMarkerColor;
+        ctx.fill();
+
+        // Numéro de repère
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = CONFIG.trailMarkerColor;
+
+        ctx.fillText(
+            String(markerIndex + 1).padStart(2, "0"),
+            x,
+            y - 13
+        );
+    });
+
+    ctx.restore();
+}
+
 // =========================================
 // 9. RENDU
 // =========================================
@@ -414,7 +603,9 @@ function render() {
     calculateGrid();
 
     ctx.clearRect(0, 0, width, height);
+
     drawContours();
+    drawTrail();
 }
 
 // =========================================
