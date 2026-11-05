@@ -181,7 +181,7 @@ function renderQuestion() {
         answerGrid
     );
 
-    previousButton.disabled = currentIndex === 0;
+    previousButton.disabled = false;
 
     nextButton.textContent =
         currentIndex === questions.length - 1
