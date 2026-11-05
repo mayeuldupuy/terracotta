@@ -8,7 +8,7 @@ const q = (id, page, category, title, entries, extra = {}) => ({
 });
 
 export const questions = [
-  // Ancien ID : Q1.1
+// Ancien ID : Q1.1
   q("Q1", 1, "Émotionnel", "Qu'est-ce qui te donne envie de vivre une aventure en pleine nature en ce moment ?", [
     ["A", "Découvrir de nouveaux paysages"],
     ["B", "Prendre l’air et déconnecter"],
@@ -16,7 +16,7 @@ export const questions = [
     ["D", "Me dépasser physiquement"],
     ["E", "Partager une expérience humaine"],
     ["F", "Profiter sans objectif particulier"]
-  ]),
+  ], { type: "multiple" }),
   // Ancien ID : Q1.2
   q("Q2", 2, "Émotionnel", "Qu'est-ce qui te pousse à franchir le pas maintenant ?", [
     ["A", "J’ai envie de sortir de ma routine"],

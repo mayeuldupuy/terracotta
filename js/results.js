@@ -400,7 +400,7 @@ export function renderResults(answers) {
     const eyebrow = createElement(
         "p",
         "result-profile-eyebrow",
-        "VOTRE NATURE D'AVENTURIER"
+        "Ta nature d'aventurier"
     );
 
     const profileName = result.primary

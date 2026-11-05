@@ -1,11 +1,43 @@
-// Référentiel des 8 profils Terracotta
+
 export const profiles = [
-  {id:'P1',name:'Novice en découverte',description:'Tu souhaites découvrir la nature à ton rythme, avec des repères et un accompagnement rassurant.'},
-  {id:'P2',name:'Chercheur de déconnexion',description:'Tu recherches le calme, la contemplation et une vraie coupure avec le quotidien.'},
-  {id:'P3',name:'Sportif en reprise',description:'Tu souhaites retrouver ou développer ta condition physique grâce à une progression accessible.'},
-  {id:'P4',name:'Explorateur',description:'Tu aimes découvrir de nouveaux lieux, sortir des habitudes et explorer des territoires.'},
-  {id:'P5',name:'Challenger',description:'Tu es attiré par le défi, la satisfaction de l’effort et le dépassement de soi.'},
-  {id:'P6',name:'Autonome en devenir',description:'Tu veux apprendre des compétences concrètes pour gagner en autonomie dans la nature.'},
-  {id:'P7',name:'Aventurier expérimenté',description:'Tu possèdes déjà une expérience outdoor et souhaites envisager de nouvelles aventures engagées.'},
-  {id:'P8',name:'Chercheur d’expérience humaine',description:'Tu recherches avant tout le partage, les rencontres et les expériences collectives.'}
+  {
+    id: 'P1',
+    name: 'Curieux.se',
+    description: 'À la recherche de premières découvertes en pleine nature, de nouvelles sensations et d’expériences accessibles pour oser se lancer.'
+  },
+  {
+    id: 'P2',
+    name: "L'esprit libre",
+    description: 'À la recherche de calme, de grands espaces et de moments loin du quotidien pour ralentir, respirer et se reconnecter à l’essentiel.'
+  },
+  {
+    id: 'P3',
+    name: 'Le renouveau',
+    description: 'À la recherche d’un nouvel élan, du plaisir de bouger et de défis progressifs pour retrouver confiance en ses capacités.'
+  },
+  {
+    id: 'P4',
+    name: "L'explorateur.rice",
+    description: 'À la recherche de nouveaux horizons, de sentiers inconnus et de territoires à parcourir pour nourrir sa soif de découverte.'
+  },
+  {
+    id: 'P5',
+    name: 'Le challenger',
+    description: 'À la recherche de défis physiques, de dépassement de soi et de cette satisfaction unique que procure l’effort accompli.'
+  },
+  {
+    id: 'P6',
+    name: 'Le pionnier',
+    description: 'À la recherche de nouvelles compétences, de liberté et d’autonomie pour apprendre à tracer progressivement son propre chemin.'
+  },
+  {
+    id: 'P7',
+    name: "L'aventurier",
+    description: 'À la recherche d’expériences engagées, de terrains exigeants et de nouvelles frontières à repousser grâce à son expérience.'
+  },
+  {
+    id: 'P8',
+    name: 'Le compagnon',
+    description: 'À la recherche de rencontres authentiques, d’aventures partagées et de liens humains qui donnent tout leur sens au voyage.'
+  }
 ];
