@@ -107,7 +107,7 @@ function createContactForm(answers, result) {
     const title = createElement(
         "h2",
         "contact-title",
-        "Parlons de ton aventure."
+        "Parlons de ton aventure"
     );
 
     const intro = createElement(
@@ -214,7 +214,7 @@ function createContactForm(answers, result) {
     const submitButton = createElement(
         "button",
         "contact-submit",
-        "Envoyer ma demande"
+        "Envoyer"
     );
 
     submitButton.type = "submit";
@@ -362,7 +362,7 @@ function createContactForm(answers, result) {
 
                 submitButton.disabled = false;
                 submitButton.textContent =
-                    "Envoyer ma demande";
+                    "Envoyer";
             }
         }
     );
