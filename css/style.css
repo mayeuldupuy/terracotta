@@ -378,3 +378,9 @@ p {
         padding: 11px;
     }
 }
+
+/* Masquage temporaire de l'en-tête Terracotta */
+
+.site-header {
+    display: none;
+}
