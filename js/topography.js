@@ -39,10 +39,10 @@ const CONFIG = {
     mobileGridSize: 9,
 
     // Tracé de randonnée
-    trailColor: "rgba(57, 255, 19, 0.50)",
-    trailMarkerColor: "rgba(26, 25, 25, 0.4)",
-    trailWidth: 1.8,
-    trailDash: [15, 6],
+    trailColor: "rgba(211, 27, 104, 0.57)",
+    trailMarkerColor: "rgba(25, 26, 25, 0.4)",
+    trailWidth: 1.9,
+    trailDash: [10, 6],
     trailMouseStrength: 0.200
 };
 
@@ -434,7 +434,7 @@ const TRAIL_POINTS = [
     { x: 0.46, y: 0.52 },
 
     // Transition douce
-    { x: 0.53, y: 0.44 },
+    { x: 0.50, y: 0.44 },
     { x: 0.60, y: 0.47 },
 
     // Deuxième zone de lacets
@@ -451,7 +451,7 @@ const TRAIL_POINTS = [
 ];
 
 // Repères placés sur certains points du chemin.
-const TRAIL_MARKERS = [3, 12];
+const TRAIL_MARKERS = [3, 14];
 
 // Déformation locale autour de la souris.
 function deformTrailPoint(point) {
