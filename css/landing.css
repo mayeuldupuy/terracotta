@@ -1,3 +1,4 @@
+
 /* =====================================
    LANDING PAGE
 ===================================== */
@@ -21,13 +22,52 @@
     margin-bottom: 42px;
 }
 
+/* =====================================
+   CTA — LIME GLASS
+===================================== */
+
 .landing-content .glass-button {
-    padding: 17px 32px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 20px;
+
+    min-height: 58px;
+    padding: 17px 32px;
+
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .landing-content .glass-button span {
+    display: inline-block;
     font-size: 20px;
+    line-height: 1;
+
+    transition: transform .3s ease;
+}
+
+.landing-content .glass-button:hover span {
+    transform: translate(3px, -3px);
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 600px) {
+    .landing-content .glass-button {
+        max-width: 100%;
+        min-height: 54px;
+        padding: 15px 25px;
+        gap: 14px;
+        font-size: 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .landing-content .glass-button span {
+        transition: none;
+    }
 }

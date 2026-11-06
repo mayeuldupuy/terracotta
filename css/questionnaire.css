@@ -1,7 +1,7 @@
 
 /* =========================================
-   TERRACOTTA — QUESTIONNAIRE V2
-   Mise en page compacte et responsive
+   TERRACOTTA — QUESTIONNAIRE
+   Frosted Glass + Lime Glass
 ========================================= */
 
 /* Structure principale */
@@ -33,7 +33,9 @@
     letter-spacing: 2.5px;
 }
 
-/* Barre de progression */
+/* =========================================
+   BARRE DE PROGRESSION
+========================================= */
 
 .progress-track {
     width: 100%;
@@ -41,7 +43,7 @@
     height: 5px;
     margin-bottom: 14px;
 
-    background: rgba(46, 46, 46, 0.15);
+    background: rgba(46,46,46,.15);
     border-radius: 999px;
     overflow: hidden;
 }
@@ -57,10 +59,10 @@
     );
 
     border-radius: inherit;
-    transition: width 0.65s ease;
+    transition: width .65s ease;
 }
 
-/* Compteur */
+/* Pourcentage */
 
 .question-counter {
     margin-bottom: 16px;
@@ -70,7 +72,9 @@
     line-height: 1.4;
 }
 
-/* Zone dynamique */
+/* =========================================
+   ZONE DYNAMIQUE
+========================================= */
 
 #question-container {
     width: 100%;
@@ -81,14 +85,12 @@
     align-items: center;
 
     text-align: center;
-
     min-height: 0;
 }
 
 .questionnaire-content h1,
 #question-container h1 {
     max-width: 760px;
-
     margin-bottom: 12px;
 
     font-size: clamp(25px, 3vw, 38px);
@@ -97,19 +99,18 @@
     letter-spacing: -0.035em;
 }
 
-/* Description éventuelle */
-
 .questionnaire-content .intro,
 #question-container .intro {
     max-width: 640px;
-
     margin-bottom: 20px;
 
     font-size: 15px;
     line-height: 1.5;
 }
 
-/* Grille des réponses */
+/* =========================================
+   GRILLE DES RÉPONSES
+========================================= */
 
 .answer-grid {
     width: 100%;
@@ -121,13 +122,16 @@
     gap: 12px;
 }
 
-/* Boutons de réponse */
+/* =========================================
+   FROSTED GLASS — BOUTONS DE RÉPONSE
+========================================= */
 
 .answer-button {
     width: 100%;
     min-height: 58px;
+    padding: 13px 18px;
 
-    padding: 12px 16px;
+    border-radius: 19px;
 
     font-size: 14px;
     font-weight: 600;
@@ -140,21 +144,35 @@
 /* Réponse sélectionnée */
 
 .answer-button.selected {
-    background:
-        linear-gradient(
-            rgba(156, 255, 0, 0.20),
-            rgba(57, 255, 19, 0.13)
-        ) padding-box,
-        linear-gradient(
-            110deg,
-            #39FF13,
-            #9CFF00
-        ) border-box;
+    border-color: rgba(17,119,1,.40);
 
-    box-shadow: 0 0 18px rgba(57, 255, 19, 0.12);
+    background: linear-gradient(
+        145deg,
+        rgba(239,255,235,.96) 0%,
+        rgba(211,246,201,.82) 55%,
+        rgba(175,230,162,.65) 100%
+    );
+
+    box-shadow:
+        0 6px 20px rgba(17,119,1,.105),
+        0 1px 4px rgba(17,119,1,.045),
+        inset 0 1.5px 1px rgba(255,255,255,1),
+        inset 0 -2px 4px rgba(17,119,1,.055);
+
+    color: #174B12;
 }
 
-/* Message de validation */
+.answer-button.selected:hover {
+    border-color: rgba(17,119,1,.55);
+
+    box-shadow:
+        0 10px 25px rgba(17,119,1,.14),
+        inset 0 1px 1px rgba(255,255,255,.95);
+}
+
+/* =========================================
+   MESSAGE DE VALIDATION
+========================================= */
 
 .question-error {
     width: 100%;
@@ -169,7 +187,7 @@
 }
 
 /* =========================================
-   NAVIGATION STABLE
+   NAVIGATION
 ========================================= */
 
 .question-navigation {
@@ -182,7 +200,6 @@
 
     gap: 16px;
 
-    /* Pousse la navigation vers le bas */
     margin-top: auto;
     padding-top: 22px;
     padding-bottom: 6px;
@@ -190,33 +207,74 @@
     flex-wrap: nowrap;
 }
 
+/* Lime Glass */
+
 .question-navigation .glass-button {
     min-width: 138px;
     min-height: 46px;
 
     padding: 11px 24px;
 
+    border-radius: 999px;
+
     font-size: 14px;
     line-height: 1.3;
 }
 
+/* Bouton précédent : verre plus discret */
+
+#previous-button {
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,.90),
+        rgba(233,243,231,.72)
+    );
+
+    border-color: rgba(46,46,46,.12);
+
+    box-shadow:
+        0 5px 16px rgba(31,48,31,.05),
+        inset 0 1px 1px rgba(255,255,255,1);
+}
+
+#previous-button:hover:not(:disabled) {
+    box-shadow:
+        0 9px 22px rgba(31,48,31,.09),
+        inset 0 1px 1px rgba(255,255,255,1);
+}
+
+/* Bouton suivant : Lime Glass plus marqué */
+
+#next-button {
+    border-color: rgba(17,119,1,.32);
+
+    background: linear-gradient(
+        145deg,
+        rgba(235,255,230,.94),
+        rgba(175,232,162,.83)
+    );
+
+    box-shadow:
+        0 7px 22px rgba(17,119,1,.11),
+        inset 0 1px 1px rgba(255,255,255,.98),
+        inset 0 -2px 4px rgba(17,119,1,.07);
+}
+
 .question-navigation button:disabled {
-    opacity: 0.35;
+    opacity: .35;
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
 }
 
 /* =========================================
-   ORDINATEUR : HAUTEUR DE FENÊTRE
+   ORDINATEUR
 ========================================= */
 
 @media (min-width: 601px) {
-
     #questionnaire .questionnaire-content {
         min-height: calc(100dvh - 80px);
     }
-
 }
 
 /* =========================================
@@ -224,14 +282,12 @@
 ========================================= */
 
 @media (max-width: 600px) {
-
     #questionnaire {
         min-height: calc(100dvh - 70px);
     }
 
     #questionnaire .questionnaire-content {
         min-height: calc(100dvh - 70px);
-
         padding: 10px 18px 14px;
     }
 
@@ -254,7 +310,6 @@
     #question-container h1,
     .questionnaire-content h1 {
         margin-bottom: 10px;
-
         font-size: clamp(22px, 5.5vw, 29px);
         line-height: 1.2;
         letter-spacing: -0.025em;
@@ -263,13 +318,9 @@
     #question-container .intro,
     .questionnaire-content .intro {
         margin-bottom: 14px;
-
         font-size: 13px;
         line-height: 1.4;
     }
-
-    /* Une colonne pour préserver
-       la lisibilité des libellés longs */
 
     .answer-grid {
         grid-template-columns: 1fr;
@@ -278,9 +329,9 @@
 
     .answer-button {
         min-height: 43px;
+        padding: 10px 14px;
 
-        padding: 9px 13px;
-
+        border-radius: 15px;
         font-size: 13px;
         line-height: 1.3;
     }
@@ -293,7 +344,6 @@
 
     .question-navigation {
         gap: 12px;
-
         margin-top: auto;
         padding-top: 16px;
         padding-bottom: 4px;
@@ -303,12 +353,9 @@
         flex: 1;
         min-width: 0;
         min-height: 43px;
-
         padding: 10px 14px;
-
         font-size: 13px;
     }
-
 }
 
 /* =========================================
@@ -316,7 +363,6 @@
 ========================================= */
 
 @media (max-height: 740px) {
-
     .questionnaire-content {
         padding-top: 8px;
         padding-bottom: 12px;
@@ -326,10 +372,7 @@
         margin-bottom: 8px;
     }
 
-    .progress-track {
-        margin-bottom: 8px;
-    }
-
+    .progress-track,
     .question-counter {
         margin-bottom: 8px;
     }
@@ -354,7 +397,6 @@
     .question-navigation {
         padding-top: 12px;
     }
-
 }
 
 /* =========================================
@@ -362,14 +404,13 @@
 ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
     .progress-fill {
         transition: none;
     }
-
 }
 
-/* Masquer les titres des questionnaires */
+/* Masquage des catégories */
+
 #question-category {
     display: none;
 }

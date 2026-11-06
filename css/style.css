@@ -12,12 +12,12 @@
     --color-green-end: #68D14F;
 
     --font-main: Arial, sans-serif;
-
     --radius-button: 40px;
-
     --content-width: 1100px;
-}
 
+    --glass-blur: 18px;
+    --glass-ease: cubic-bezier(.22, 1, .36, 1);
+}
 
 /* =====================================
    2. RESET
@@ -34,22 +34,18 @@ html {
 }
 
 body {
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+
     font-family: var(--font-main);
     background: var(--color-background);
     color: var(--color-text);
-    min-height: 100vh;
 }
-
 
 /* =====================================
-   3. FOND TOPOGRAPHIQUE INTERACTIF
+   3. FOND TOPOGRAPHIQUE
 ===================================== */
-
-body {
-    position: relative;
-    overflow-x: hidden;
-    background: var(--color-background);
-}
 
 #topography-canvas {
     position: fixed;
@@ -67,7 +63,6 @@ body {
     z-index: 1;
     min-height: 100vh;
 }
-
 
 /* =====================================
    4. STRUCTURE GÉNÉRALE
@@ -90,7 +85,6 @@ body {
     margin: 0 auto;
     padding: 60px 30px;
 }
-
 
 /* =====================================
    5. EN-TÊTE
@@ -115,13 +109,10 @@ body {
     font-size: 17px;
     font-weight: 700;
     letter-spacing: 5px;
-}
 
-/* Masquage temporaire du nom Terracotta */
-.brand {
+    /* Masquage temporaire */
     display: none;
 }
-
 
 /* =====================================
    6. TYPOGRAPHIE
@@ -158,60 +149,145 @@ p {
     max-width: 600px;
 }
 
-
 /* =====================================
-   7. BOUTONS LIQUID GLASS
+   7. BASE COMMUNE DES BOUTONS
 ===================================== */
 
 .glass-button,
 .answer-button {
     position: relative;
     isolation: isolate;
+    overflow: hidden;
 
-    border: 1px solid transparent;
+    appearance: none;
+    -webkit-appearance: none;
+
     border-radius: var(--radius-button);
-
-    background:
-        linear-gradient(
-            rgba(255, 255, 255, 0.88),
-            rgba(255, 255, 255, 0.88)
-        ) padding-box,
-        linear-gradient(
-            110deg,
-            var(--color-green-start),
-            var(--color-green-end)
-        ) border-box;
-
     color: var(--color-text);
+
     font-family: inherit;
     font-size: 15px;
     font-weight: 600;
+    line-height: 1.35;
 
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(var(--glass-blur)) saturate(145%);
+    -webkit-backdrop-filter:
+        blur(var(--glass-blur)) saturate(145%);
 
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
+        transform .32s var(--glass-ease),
+        box-shadow .32s var(--glass-ease),
+        background .32s ease,
+        border-color .32s ease;
 }
 
-.glass-button:hover,
+/* =====================================
+   8. LIME GLASS — ACTIONS PRINCIPALES
+===================================== */
+
+.glass-button {
+    border: 1px solid rgba(17, 119, 1, .28);
+
+    background:
+        linear-gradient(
+            160deg,
+            rgba(255,255,255,.72) 0%,
+            rgba(221,249,214,.78) 27%,
+            rgba(160,225,146,.64) 100%
+        );
+
+    box-shadow:
+        0 8px 24px rgba(32, 92, 27, .09),
+        0 2px 5px rgba(32, 92, 27, .04),
+        inset 0 1.5px 1px rgba(255,255,255,.98),
+        inset 0 -2px 5px rgba(17,119,1,.07);
+}
+
+.glass-button::before {
+    content: "";
+    position: absolute;
+    inset: 1px 3px auto;
+    height: 48%;
+    border-radius: 999px 999px 55% 55%;
+
+    background: linear-gradient(
+        180deg,
+        rgba(255,255,255,.52),
+        rgba(255,255,255,0)
+    );
+
+    pointer-events: none;
+    z-index: -1;
+}
+
+.glass-button:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.012);
+
+    box-shadow:
+        0 13px 30px rgba(32,92,27,.14),
+        0 3px 8px rgba(32,92,27,.05),
+        inset 0 1.5px 1px rgba(255,255,255,1),
+        inset 0 -2px 6px rgba(17,119,1,.08);
+}
+
+.glass-button:active:not(:disabled) {
+    transform: translateY(0) scale(.985);
+}
+
+.glass-button:disabled {
+    opacity: .42;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* =====================================
+   9. FROSTED GLASS — RÉPONSES
+===================================== */
+
+.answer-button {
+    border: 1px solid rgba(255,255,255,.95);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.90) 0%,
+            rgba(255,255,255,.66) 52%,
+            rgba(228,235,228,.56) 100%
+        );
+
+    box-shadow:
+        0 5px 18px rgba(31,48,31,.055),
+        0 1px 3px rgba(31,48,31,.035),
+        inset 0 1px 1px rgba(255,255,255,1),
+        inset 0 -1px 2px rgba(70,90,70,.045);
+}
+
 .answer-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 22px rgba(57, 255, 19, 0.14);
+    transform: translateY(-2px);
+
+    border-color: rgba(104,209,79,.46);
+
+    box-shadow:
+        0 10px 24px rgba(31,80,31,.09),
+        0 2px 5px rgba(31,48,31,.035),
+        inset 0 1px 1px rgba(255,255,255,1);
+}
+
+.answer-button:active {
+    transform: scale(.985);
 }
 
 .glass-button:focus-visible,
 .answer-button:focus-visible {
-    outline: 2px solid var(--color-text);
+    outline: 2px solid var(--color-green-start);
     outline-offset: 4px;
 }
 
-
 /* =====================================
-   8. BOUTON ACCUEIL — LOGO SEUL
+   10. BOUTON ACCUEIL — LOGO SEUL
 ===================================== */
 
 .home-button {
@@ -237,8 +313,7 @@ p {
     -webkit-backdrop-filter: none;
 
     cursor: pointer;
-
-    transition: transform 0.25s ease;
+    transition: transform .25s var(--glass-ease);
 }
 
 .home-button img {
@@ -249,26 +324,22 @@ p {
 
 .home-button:hover {
     transform: scale(1.08);
-    background: transparent;
-    box-shadow: none;
 }
 
 .home-button:active {
-    transform: scale(0.96);
+    transform: scale(.96);
 }
 
 .home-button:focus-visible {
-    outline: 2px solid #2E2E2E;
+    outline: 2px solid var(--color-text);
     outline-offset: 4px;
 }
 
-
 /* =====================================
-   9. RESPONSIVE
+   11. RESPONSIVE
 ===================================== */
 
 @media (max-width: 600px) {
-
     .container {
         padding: 45px 22px;
     }
@@ -300,5 +371,13 @@ p {
         width: 48px;
         height: 48px;
         padding: 9px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .glass-button,
+    .answer-button,
+    .home-button {
+        transition: none;
     }
 }
