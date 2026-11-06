@@ -116,8 +116,6 @@ function updateProgress() {
         "aria-valuenow",
         Math.round(progress)
     );
-
-    counterElement.textContent = `${Math.round(progress)} %`;
 }
 
 // CRÉATION DES BOUTONS DE RÉPONSE
