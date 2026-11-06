@@ -1,14 +1,15 @@
+
 /* =====================================
    1. VARIABLES GRAPHIQUES
 ===================================== */
 
 :root {
-    --color-background: #FFFFFF;
+    --color-background: #fafafa;
     --color-text: #2E2E2E;
     --color-black: #000000;
 
-    --color-green-start: #39FF13;
-    --color-green-end: #9CFF00;
+    --color-green-start: #117701;
+    --color-green-end: #68D14F;
 
     --font-main: Arial, sans-serif;
 
@@ -41,13 +42,13 @@ body {
 
 
 /* =====================================
-   FOND TOPOGRAPHIQUE INTERACTIF
+   3. FOND TOPOGRAPHIQUE INTERACTIF
 ===================================== */
 
 body {
     position: relative;
     overflow-x: hidden;
-    background: #FFFFFF;
+    background: var(--color-background);
 }
 
 #topography-canvas {
@@ -71,10 +72,6 @@ body {
 /* =====================================
    4. STRUCTURE GÉNÉRALE
 ===================================== */
-
-#app {
-    min-height: 100vh;
-}
 
 .screen {
     display: none;
@@ -118,6 +115,11 @@ body {
     font-size: 17px;
     font-weight: 700;
     letter-spacing: 5px;
+}
+
+/* Masquage temporaire du nom Terracotta */
+.brand {
+    display: none;
 }
 
 
@@ -190,8 +192,9 @@ p {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 
-    transition: transform 0.25s ease,
-                box-shadow 0.25s ease;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .glass-button:hover,
@@ -208,7 +211,60 @@ p {
 
 
 /* =====================================
-   8. RESPONSIVE
+   8. BOUTON ACCUEIL — LOGO SEUL
+===================================== */
+
+.home-button {
+    position: fixed;
+    top: 28px;
+    left: 28px;
+    z-index: 1000;
+
+    width: 58px;
+    height: 58px;
+    padding: 9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    box-shadow: none;
+
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+
+    cursor: pointer;
+
+    transition: transform 0.25s ease;
+}
+
+.home-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.home-button:hover {
+    transform: scale(1.08);
+    background: transparent;
+    box-shadow: none;
+}
+
+.home-button:active {
+    transform: scale(0.96);
+}
+
+.home-button:focus-visible {
+    outline: 2px solid #2E2E2E;
+    outline-offset: 4px;
+}
+
+
+/* =====================================
+   9. RESPONSIVE
 ===================================== */
 
 @media (max-width: 600px) {
@@ -238,149 +294,11 @@ p {
         font-size: 15px;
     }
 
-}
-
-/* =========================================
-   TERRACOTTA — BOUTON RETOUR ACCUEIL
-   ========================================= */
-
-.home-button {
-    position: fixed;
-    top: 28px;
-    left: 28px;
-    z-index: 1000;
-
-    width: 58px;
-    height: 58px;
-    padding: 14px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    /* Effet liquid glass */
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-
-    border: 1px solid rgba(57, 255, 19, 0.55);
-
-    box-shadow:
-        0 4px 20px rgba(0, 0, 0, 0.05),
-        inset 0 1px 1px rgba(255, 255, 255, 0.85);
-
-    cursor: pointer;
-
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.home-button img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.home-button:hover {
-    transform: scale(1.08);
-
-    background: rgba(255, 255, 255, 0.8);
-
-    box-shadow:
-        0 6px 25px rgba(57, 255, 19, 0.15),
-        0 0 0 2px rgba(156, 255, 0, 0.25);
-}
-
-/* =========================================
-   TERRACOTTA — BOUTON ACCUEIL
-   ========================================= */
-
-.home-button {
-    position: fixed;
-    top: 28px;
-    left: 28px;
-    z-index: 1000;
-
-    width: 58px;
-    height: 58px;
-    padding: 14px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    /* Fond vert pâle, identique au CTA */
-    background:
-        linear-gradient(
-            135deg,
-            rgba(239, 255, 224, 0.95),
-            rgba(247, 255, 235, 0.95)
-        ) padding-box,
-
-        linear-gradient(
-            135deg,
-            #39FF13,
-            #9CFF00
-        ) border-box;
-
-    border: 1px solid transparent;
-
-    /* Effet liquid glass */
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-
-    box-shadow:
-        0 4px 20px rgba(0, 0, 0, 0.035),
-        inset 0 1px 1px rgba(255, 255, 255, 0.8);
-
-    cursor: pointer;
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.home-button img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.home-button:hover {
-    transform: scale(1.08);
-
-    box-shadow:
-        0 6px 25px rgba(57, 255, 19, 0.15),
-        0 0 0 2px rgba(156, 255, 0, 0.12);
-}
-
-.home-button:active {
-    transform: scale(0.96);
-}
-
-.home-button:focus-visible {
-    outline: 2px solid #39FF13;
-    outline-offset: 4px;
-}
-
-@media (max-width: 600px) {
     .home-button {
         top: 16px;
         left: 16px;
         width: 48px;
         height: 48px;
-        padding: 11px;
+        padding: 9px;
     }
-}
-
-/* Masquage temporaire du nom Terracotta */
-
-.brand {
-    display: none;
 }
