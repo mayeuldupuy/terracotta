@@ -43,7 +43,12 @@ const CONFIG = {
     trailMarkerColor: "rgba(25, 26, 25, 0.4)",
     trailWidth: 1.9,
     trailDash: [10, 6],
-    trailMouseStrength: 0.200
+    trailMouseStrength: 0.200,
+
+    // Étiquettes IGN du GR
+    trailLabel: "GR67",
+    trailLabelFont: "700 12px Arial, sans-serif",
+    trailLabelGap: 4
 };
 
 // =========================================
@@ -411,7 +416,6 @@ function drawContours() {
     }
 }
 
-
 /* =========================================
    TERRACOTTA — TRACÉ DE RANDONNÉE GR
 ========================================= */
@@ -452,7 +456,19 @@ const TRAIL_POINTS = [
 // Repères placés sur certains points du chemin.
 const TRAIL_MARKERS = [3, 11, 16];
 
-// Déformation locale autour de la souris.
+// Positions des annotations GR67.
+// section : indice de la portion du chemin.
+// t : position sur cette portion, entre 0 et 1.
+// side : côté du chemin (-1 ou 1).
+
+const TRAIL_LABELS = [
+    { section: 14, t: 0.55, side: 1 }
+];
+
+// =========================================
+// DÉFORMATION DU SENTIER
+// =========================================
+
 function deformTrailPoint(point) {
     const dx = point.x - pointer.x;
     const dy = point.y - pointer.y;
@@ -469,16 +485,16 @@ function deformTrailPoint(point) {
         pointer.influence *
         CONFIG.trailMouseStrength;
 
-    // Déplacement dans une direction tangentielle
-    // pour éviter une simple translation du chemin.
     return {
         x: point.x - dy * displacement * 3,
         y: point.y + dx * displacement * 3
     };
 }
 
-// Interpolation Catmull-Rom :
-// chemin fluide traversant tous les points de référence.
+// =========================================
+// INTERPOLATION CATMULL-ROM
+// =========================================
+
 function trailCurvePoint(p0, p1, p2, p3, t) {
     const t2 = t * t;
     const t3 = t2 * t;
@@ -503,6 +519,81 @@ function trailCurvePoint(p0, p1, p2, p3, t) {
     };
 }
 
+// =========================================
+// ANNOTATIONS GR67
+// =========================================
+
+function drawTrailLabels(points) {
+    ctx.save();
+
+    ctx.setLineDash([]);
+    ctx.font = CONFIG.trailLabelFont;
+    ctx.fillStyle = CONFIG.trailColor;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    TRAIL_LABELS.forEach(({ section, t, side }) => {
+        if (section < 0 || section >= points.length - 1) {
+            return;
+        }
+
+        const p0 = points[Math.max(0, section - 1)];
+        const p1 = points[section];
+        const p2 = points[section + 1];
+        const p3 = points[
+            Math.min(points.length - 1, section + 2)
+        ];
+
+        const at = (u) => {
+            return trailCurvePoint(p0, p1, p2, p3, u);
+        };
+
+        const point = at(t);
+
+        const before = at(Math.max(0, t - 0.02));
+        const after = at(Math.min(1, t + 0.02));
+
+        // Direction locale du sentier en pixels
+        const dx = (after.x - before.x) * width;
+        const dy = (after.y - before.y) * height;
+
+        const length = Math.hypot(dx, dy) || 1;
+
+        // Vecteur perpendiculaire au sentier
+        const nx = -dy / length;
+        const ny = dx / length;
+
+        // Écart constant entre le texte et le sentier
+        const offset = CONFIG.trailLabelGap + 6;
+
+        const x = point.x * width + side * nx * offset;
+        const y = point.y * height + side * ny * offset;
+
+        // Angle local du sentier
+        let angle = Math.atan2(dy, dx);
+
+        // Conserver le texte lisible, jamais à l'envers
+        if (angle > Math.PI / 2) {
+            angle -= Math.PI;
+        } else if (angle < -Math.PI / 2) {
+            angle += Math.PI;
+        }
+
+        // Orienter l'étiquette selon le sentier
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.fillText(CONFIG.trailLabel, 0, 0);
+        ctx.restore();
+    });
+
+    ctx.restore();
+}
+
+// =========================================
+// DESSIN DU SENTIER ET DES REPÈRES
+// =========================================
+
 function drawTrail() {
     if (!width || !height) return;
 
@@ -521,17 +612,21 @@ function drawTrail() {
     ctx.lineJoin = "round";
 
     const first = points[0];
-    ctx.moveTo(first.x * width, first.y * height);
 
-    // Interpolation par petits segments.
-    // Coût négligeable comparé aux courbes de niveau.
+    ctx.moveTo(
+        first.x * width,
+        first.y * height
+    );
+
     const segmentsPerSection = 12;
 
     for (let i = 0; i < points.length - 1; i++) {
         const p0 = points[Math.max(0, i - 1)];
         const p1 = points[i];
         const p2 = points[i + 1];
-        const p3 = points[Math.min(points.length - 1, i + 2)];
+        const p3 = points[
+            Math.min(points.length - 1, i + 2)
+        ];
 
         for (let j = 1; j <= segmentsPerSection; j++) {
             const t = j / segmentsPerSection;
@@ -550,7 +645,10 @@ function drawTrail() {
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // Repères cartographiques discrets
+    // =====================================
+    // REPÈRES CARTOGRAPHIQUES
+    // =====================================
+
     TRAIL_MARKERS.forEach((index, markerIndex) => {
         const point = points[index];
 
@@ -559,7 +657,7 @@ function drawTrail() {
         const x = point.x * width;
         const y = point.y * height;
 
-        // Petit cercle à fond blanc translucide
+        // Cercle translucide
         ctx.beginPath();
         ctx.arc(x, y, 4.5, 0, Math.PI * 2);
 
@@ -573,6 +671,7 @@ function drawTrail() {
         // Point central
         ctx.beginPath();
         ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+
         ctx.fillStyle = CONFIG.trailMarkerColor;
         ctx.fill();
 
@@ -588,6 +687,9 @@ function drawTrail() {
             y - 13
         );
     });
+
+    // Dessin des deux annotations GR67
+    drawTrailLabels(points);
 
     ctx.restore();
 }
