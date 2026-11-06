@@ -430,12 +430,11 @@ const TRAIL_POINTS = [
     // Première zone sinueuse
     { x: 0.35, y: 0.66 },
     { x: 0.37, y: 0.60 },
-    { x: 0.36, y: 0.48 },
-    { x: 0.46, y: 0.52 },
+    { x: 0.36, y: 0.45 },
 
     // Transition douce
-    { x: 0.50, y: 0.44 },
-    { x: 0.60, y: 0.47 },
+    { x: 0.50, y: 0.49 },
+    { x: 0.70, y: 0.47 },
 
     // Deuxième zone de lacets
     { x: 0.65, y: 0.36 },
@@ -451,7 +450,7 @@ const TRAIL_POINTS = [
 ];
 
 // Repères placés sur certains points du chemin.
-const TRAIL_MARKERS = [3, 14];
+const TRAIL_MARKERS = [3, 11, 16];
 
 // Déformation locale autour de la souris.
 function deformTrailPoint(point) {
