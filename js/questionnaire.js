@@ -108,7 +108,7 @@ function showError(message) {
 // PROGRESSION
 
 function updateProgress() {
-    const progress = ((currentIndex + 1) / questions.length) * 100;
+    const progress = (currentIndex / questions.length) * 100;
 
     progressFill.style.width = `${progress}%`;
 
@@ -117,8 +117,7 @@ function updateProgress() {
         Math.round(progress)
     );
 
-    counterElement.textContent =
-        `Question ${currentIndex + 1} sur ${questions.length}`;
+    counterElement.textContent = `${Math.round(progress)} %`;
 }
 
 // CRÉATION DES BOUTONS DE RÉPONSE
@@ -183,7 +182,7 @@ function renderQuestion() {
 
     nextButton.textContent =
         currentIndex === questions.length - 1
-            ? "Découvrir mon profil"
+            ? "Trouver mon aventure"
             : "Suivant";
 }
 

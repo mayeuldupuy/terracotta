@@ -18,7 +18,7 @@ export const profiles = [
   {
     id: 'P4',
     name: "L'explorateur.rice",
-    description: 'À la recherche de nouveaux horizons, de sentiers inconnus et de territoires à parcourir pour nourrir sa soif de découverte.'
+    description: 'À la recherche de nouveaux horizons, de sentiers inconnus et de territoires à parcourir pour nourrir ta soif de découverte.'
   },
   {
     id: 'P5',
