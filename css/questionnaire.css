@@ -38,12 +38,11 @@
 .progress-track {
     width: 100%;
     max-width: 420px;
-    height: 3px;
-
+    height: 5px;
     margin-bottom: 14px;
 
-    background: rgba(46, 46, 46, 0.10);
-    border-radius: 10px;
+    background: rgba(46, 46, 46, 0.15);
+    border-radius: 999px;
     overflow: hidden;
 }
 
@@ -57,7 +56,8 @@
         var(--color-green-end)
     );
 
-    transition: width 0.25s ease;
+    border-radius: inherit;
+    transition: width 0.65s ease;
 }
 
 /* Compteur */

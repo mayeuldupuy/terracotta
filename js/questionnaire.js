@@ -108,15 +108,13 @@ function showError(message) {
 // PROGRESSION
 
 function updateProgress() {
-    const progress = Math.round(
-        (currentIndex / questions.length) * 100
-    );
+    const progress = ((currentIndex + 1) / questions.length) * 100;
 
     progressFill.style.width = `${progress}%`;
 
     progressElement.setAttribute(
         "aria-valuenow",
-        String(progress)
+        Math.round(progress)
     );
 
     counterElement.textContent =

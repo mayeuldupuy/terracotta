@@ -379,8 +379,8 @@ p {
     }
 }
 
-/* Masquage temporaire de l'en-tête Terracotta */
+/* Masquage temporaire du nom Terracotta */
 
-.site-header {
+.brand {
     display: none;
 }
